@@ -1,0 +1,96 @@
+<?php
+function custom_features_install() {
+    drupal_install_schema('custom_features');
+}
+function custom_features_uninstall() {
+    drupal_uninstall_schema('custom_features');
+}
+
+//function contact_us_enable() {
+//  $current = variable_get('mail_system', array('default-system' => 'DefaultMailSystem'));
+//  $addition = array('contact_us' => 'contactusMailSystem');
+//  variable_set('mail_system', array_merge($current, $addition));
+//}
+//
+//function contact_us_disable() {
+//  $mail_system = variable_get('mail_system', array('default-system' => 'DefaultMailSystem'));
+//  unset($mail_system['contact_us']);
+//  variable_set('mail_system', $mail_system);
+//}
+
+function custom_features_schema() {
+    $schema = array();
+    $schema['request_status'] = array(
+      'fields' => array(
+        'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => t('Primary Key ID'),    
+      ),
+        'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+          'gid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+     'status' => array(
+        'type' => 'int',
+         'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array( 'id' ),
+  );
+    
+//    $schema['coupon_association'] = array(
+//      'fields' => array(
+//        'id' => array(
+//        'type' => 'serial',
+//        'not null' => TRUE,
+//        'description' => t('Primary Key ID'),    
+//      ),
+//        'uid' => array(
+//        'type' => 'int',
+//        'not null' => TRUE,
+//      ),
+//        'coupon_id' => array(
+//        'type' => 'int',
+//        'not null' => TRUE,
+//      ),
+//    ),
+//    'primary key' => array( 'id' ),
+//  );
+    
+    $schema['agreement'] = array(
+      'fields' => array(
+        'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => t('Primary Key ID'),    
+      ),
+        'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+        'user_agreement' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+        'sales_agreement' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+        'welcome_email' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array( 'id' ),
+  );
+
+  // Return the Table Schema
+  return $schema;
+  
+}
+

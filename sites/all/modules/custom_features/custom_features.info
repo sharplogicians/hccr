@@ -1,0 +1,6 @@
+; $Id$
+ 
+name = Custom Features
+description = Module for misc custom features
+package = Custom
+core = 7.x

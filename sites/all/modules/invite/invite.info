@@ -1,0 +1,24 @@
+name = Invite
+description = Allow users to invite others on site
+core = 7.x
+package = Invite
+
+files[] = invite.module
+files[] = includes/invite.controller.inc
+files[] = includes/invite.pages.inc
+files[] = includes/invite.info.inc
+
+; Views includes
+files[] = views/invite.views.inc
+
+configure = admin/config/people/invite
+
+dependencies[] = entity
+dependencies[] = ctools
+
+; Information added by drupal.org packaging script on 2013-03-10
+version = "7.x-4.0-alpha1+0-dev"
+core = "7.x"
+project = "invite"
+datestamp = "1362921208"
+

@@ -1,0 +1,39 @@
+<?php
+
+function custom_invitation_install() {
+    drupal_install_schema('custom_invitation');
+}
+
+function custom_invitation_uninstall() {
+    drupal_uninstall_schema('custom_invitation');
+}
+
+function custom_invitation_schema() {
+    $schema['invitations_by_sr'] = array(
+        'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'not null' => TRUE,
+                'description' => t('Primary Key ID'),
+            ),
+            'uid' => array(
+                'type' => 'int',
+                'not null' => TRUE,
+            ),
+            'email' => array(
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+            ),
+            'token' => array(
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    // Return the Table Schema
+    return $schema;
+}

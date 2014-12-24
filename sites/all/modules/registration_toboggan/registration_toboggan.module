@@ -1,0 +1,89 @@
+<?php
+/**
+ * @file
+ * Let users register and login immediately when verification mail is required.
+ */
+
+define('REGISTRATION_TOBOGGAN_AUTHENTICATED_ROLE',2);
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the user administration form.
+ */
+function registration_toboggan_form_logintoboggan_main_settings_alter(&$form, &$form_state) {
+
+  // Add new 'User Settings' option to generate password
+  // with some array juggling to get into position.
+  $setPassIndex = _registration_toboggan_array_key_index(
+    $form['registration'], 'logintoboggan_user_email_verification');
+  $firstHalf = array_slice($form['registration'], 0, $setPassIndex+1, true);
+  $firstHalf['registration_toboggan_generate_password'] =
+    array(
+      '#type' => 'checkbox',
+      '#title' => t('Auto-generate and hide password'),
+      '#default_value' => variable_get('registration_toboggan_generate_password', 0),
+      '#description' => t("This will generate a random initial password when users
+        register. This allows immediate login to the 'pre-authorized' role, evenutal
+        e-mail verification and password setup, but with the absolute minimum of initial
+        barriers. Be sure to alter your welcome email to include instructions, the login
+        link, or show the random password.<br /><strong>NOTE:</strong> This settings
+        is ONLY available with a pre-authorized role for the security of your site."),
+    );
+  $form['registration'] = array_merge($firstHalf, array_splice(
+    $form['registration'], $setPassIndex, count($form['registration']))
+  );
+  // Confirm a pre-auth roles has been setup.
+  $form['#validate'][] = 'registration_toboggan_admin_settings_validate';
+
+}
+
+/**
+ * Validation handler for the user admin form.
+ */
+function registration_toboggan_admin_settings_validate(&$form, &$form_state) {
+
+  // Confirm a pre-authorized role when immediate login is set (for security).
+  if ($form_state['values']['registration_toboggan_generate_password'] == 1) {
+    
+    if ($form_state['values']['logintoboggan_immediate_login_on_register'] == 1) {
+      
+      if($form_state['values']['logintoboggan_pre_auth_role'] == REGISTRATION_TOBOGGAN_AUTHENTICATED_ROLE) {  
+        drupal_set_message('You cannot auto-generate passwords, with immediate login, without setting up a pre-authorized role.','error');
+        $form_state['values']['registration_toboggan_generate_password'] = 0;
+      } else {
+        drupal_set_message('NOTE: Users can register and immediately login with no password.');
+      }
+    } else {
+      // Extra note for clarity.
+      drupal_set_message('NOTE: Users can register with an auto-generated password.');
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the user registration form.
+ */
+function registration_toboggan_form_user_register_form_alter(&$form, &$form_state, $form_id) {  
+  // Remove the password form element.
+  if (variable_get('registration_toboggan_generate_password', 1)) {
+    unset($form['account']['pass']);
+    $form['account']['pass']['#required'] = FALSE;
+    array_unshift($form['#validate'], 'registration_toboggan_register_validate');
+  }
+}
+
+/**
+ * Submit handler for the user registration form.
+ */
+function registration_toboggan_register_validate(&$form, &$form_state) {  
+  // Generate a password for them.
+  $form_state['values']['pass'] = user_password();
+}
+
+// http://www.php.net/manual/en/function.array-search.php#107288
+function _registration_toboggan_array_key_index(&$arr, $key) {
+    $i = 0;
+    foreach(array_keys($arr) as $k) {
+        if($k == $key) return $i;
+        $i++;
+    }
+}

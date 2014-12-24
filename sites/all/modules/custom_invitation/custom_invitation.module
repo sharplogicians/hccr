@@ -1,0 +1,115 @@
+<?php
+
+function custom_invitation_menu() {
+    $items['invite_hcf_owners'] = array(
+        'title' => 'Invite HCF owners',
+        'type' => MENU_CALLBACK,
+        'page callback' => 'my_module_form',
+        'access callback' => 'custom_invitation_access',
+    );
+
+    return $items;
+}
+
+function my_module_form() {
+    return drupal_get_form('custom_invitation_inviteHCF_form');
+}
+
+function custom_invitation_access($account) {
+    global $user;
+
+    if (in_array('Sales Manager', array_values($user->roles)) || in_array('Sales Associate', array_values($user->roles))) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+function custom_invitation_inviteHCF_form() {
+    $form['firstName'] = array(
+        '#type' => 'textfield',
+        '#title' => t('First Name'),
+        '#size' => 60,
+        '#maxlength' => 128,
+        '#required' => TRUE
+    );
+    $form['lastName'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Last Name'),
+        '#size' => 60,
+        '#maxlength' => 128,
+        '#required' => TRUE
+    );
+    $form['email'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Email'),
+        '#size' => 60,
+        '#maxlength' => 128,
+        '#required' => TRUE
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Submit',
+    );
+    return $form;
+}
+
+//validate hook
+function custom_invitation_inviteHCF_form_validate($form, &$form_state) {
+// send e-mail
+    global $user;
+    $toMail = $form_state['values']['email'];
+    $query = db_query("SELECT * FROM users WHERE mail = '$toMail'");
+    $count = $query->rowCount();
+    if ($count == 1) {
+        form_set_error('Node Url', t('This user is already registered'));
+    }
+}
+
+// submit hook
+function custom_invitation_inviteHCF_form_submit($form, &$form_state) {
+// send e-mail
+    global $user;
+    $token = md5(rand(0, 1000));
+    $toMail = $form_state['values']['email'];
+    $fromMail = variable_get('site_mail');
+    $my_module = 'custom_invitation';
+    $my_mail_token = 'form';
+
+    $body = '<h4>Hello ' . $form_state['values']['firstName'] . ' ' . $form_state['values']['lastName'] . ',</h4>';
+    $body .= 'Hair Care ChairResults is dedicated to helping talented hair care professionals gain more business by
+              maintaining a portfolio of their work on our website. As a result, we have employed recruiters to seek 
+              out hair care facilities that are doing awesome work. One of our recruiters ' . $user->name . ' 
+              has invited you to join our hair care community.<br><br>
+              
+              On our website you can collaborate with other stylists to promote the work being done at your hair care 
+              facility. As a registered hair care professional, you can publish a portfolio of your work so it can be found 
+              by potential clients searching for hair care services in your area.<br><br>
+              
+              We now welcome you to register by clicking the link below or by copying and pasting it to your browser:<br>
+              <a href="http://chairresults.com/dev/node/add/hair-care-facility?token= ' . $token . '">Click here to register your hcf.</a><br><br>
+                  
+              Thanks for your participation,<br>
+              ChairResults Management Team';
+
+    $message = array(
+        'to' => $toMail,
+        'subject' => 'We love the work being done at your Hair Care Facility',
+        'body' => $body,
+        'headers' => array('from' => $fromMail, 'Content-Type' => 'text/html;charset=UTF-8;')
+    );
+
+    $system = drupal_mail_system($my_module, $my_mail_token);
+    if ($system->mail($message)) {
+        db_insert('invitations_by_sr')->fields(
+                array(
+                    'uid' => $user->uid,
+                    'email' => $toMail,
+                    'token' => $token
+                )
+        )->execute();
+        drupal_set_message(t('Invitation has been sent to ' . $toMail));
+    } else {
+        drupal_set_message(t('There was a problem sending your email and it was not sent.'), 'error');
+    }
+}

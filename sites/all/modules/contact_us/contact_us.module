@@ -1,0 +1,122 @@
+<?php
+
+/**
+ * @file
+ * Module file for the entity tokens module. Drupal needs this file.
+ */
+function contact_us_help($path, $arg) {
+    if ($path == 'admin/help#contact_us') {
+        return t('this module will create the contact us form.');
+    }
+}
+
+function contact_us_menu() {
+    $items['contact-us'] = array(
+        'title' => 'Form Contact us',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('contact_us_form'),
+        'access callback' => TRUE,
+    );
+    return $items;
+}
+
+function contact_us_form() {
+    $form['name'] = array(
+        '#title' => t('Name'),
+        '#type' => 'textfield',
+        '#required' => TRUE,
+    );
+    $form['email'] = array(
+        '#title' => t('email'),
+        '#type' => 'textfield',
+        '#required' => TRUE,
+    );
+    $form['message'] = array(
+        '#title' => t('Message'),
+        '#type' => 'textarea',
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#value' => 'Submit',
+        '#type' => 'submit',
+    );
+    
+   
+    return $form;
+}
+
+//function for the form validation
+
+function contact_us_form_validate($form, &$form_state) {
+//  print_r($form_state);exit;
+    if(!filter_var($form_state['values']['email'], FILTER_VALIDATE_EMAIL))
+     form_set_error('email', t('Invalid Email Address'));
+}
+
+
+
+function contact_us_form_submit($form, $form_state) {
+$val=$form_state['values'];
+if($val['submit']=='Submit')
+{
+    $name=$val['name'];
+    $email=$val['email'];
+    $my_message=$val['message'];
+
+ db_query("insert into {contact_us} (name,email,message) values('$name','$email','$my_message')");
+drupal_set_message(t('Record has been inserted'));
+}
+else
+{
+drupal_set_message(t('there was a problem'));
+}
+
+
+// code for sending mail
+    $mailto = $email;
+    $mailfrom ='app-desk.com';
+   
+    $subject = "App-Desk";
+    $body="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+    <html><body>
+    <table align=\"center\"><tr><td>Name</td><td>$name</td></tr>
+    <tr><td>Your Email address</td><td>$email</td></tr>
+    <tr><td colspan=\"2\" align=\"center\">Message</td></tr>
+    <tr><td colspan=\"2\">$my_message</td></tr></table>
+    </body>
+    </html>";
+    
+     $params = array(
+        'body' => $body,
+        'subject' => $subject,
+        );
+    if (drupal_mail('send', 'send_gift', $mailto, language_default(),$params,$mailfrom,TRUE)) {
+        drupal_set_message(t('Mail has been  sent successfully!!!'));
+    }
+    else {
+        drupal_set_message(t('Error occured while sending your mail!!!'));
+    }
+ 
+}
+
+
+/****hook_mail*/
+
+function send_mail($key,&$message,$params) {
+    $language = $message['language'];
+    switch ($key) {
+        case 'send_gift':
+            $message['subject']=t($params['subject']);
+            $message['body'][]=$params['body'];
+            $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+        break;
+    }
+}
+ 
+class contact_usMailSystem extends DefaultMailSystem {
+  public function format(array $message) {
+    $message['body'] = implode("\n\n", $message['body']);
+    $message['body'] = drupal_wrap_mail($message['body']);
+    return $message;
+  }
+}

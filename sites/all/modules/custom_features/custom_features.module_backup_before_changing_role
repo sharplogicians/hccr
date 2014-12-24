@@ -1,0 +1,1542 @@
+<?php
+
+/*
+ * implementatino of hook_init
+ */
+
+function custom_features_init() {
+    drupal_add_js(drupal_get_path('module', 'custom_features') . '/js/custom_features.js');
+    //Custom feature to take user to update profile page to agree USER AGREEMENT when account created by user
+    global $user;
+    if (arg(0) != '' && arg(1) != '' && arg(2) != '') {
+        $page = arg(0) . '/' . arg(1) . '/' . arg(2);
+        $check_page = 'user/' . $user->uid . '/edit';
+    } else if (arg(0) != '' && arg(1) != '') {
+        $page = arg(0) . '/' . arg(1);
+        $check_page = 'user/logout';
+    } else if (arg(0) != '') {
+        $page = arg(0);
+        if ($page == 'user_text') {
+            $check_page = 'user_text';
+        } else if ($page == 'sales_text')
+            $check_page = 'sales_text';
+    }
+
+    if ($user->uid && $page != $check_page) {
+        if (!in_array('Sales Manager', array_values($user->roles)) && !in_array('Sales Associate', array_values($user->roles))) {
+            $query = db_query("SELECT * FROM agreement WHERE uid = '$user->uid' AND user_agreement = 1");
+            $count = $query->rowCount();
+            if ($count == 0) {
+                drupal_set_message(t('Please accept the USER AGREEMENT to enter into the WEBSITE.'));
+                drupal_goto('user/' . $user->uid . '/edit');
+            }
+        }
+        if (in_array('Sales Manager', array_values($user->roles)) || in_array('Sales Associate', array_values($user->roles))) {
+            $query = db_query("SELECT * FROM agreement WHERE uid = '$user->uid' AND user_agreement = 1");
+            $count = $query->rowCount();
+            $sales_query = db_query("SELECT * FROM agreement WHERE uid = '$user->uid' AND sales_agreement = 1");
+            $sales_count = $sales_query->rowCount();
+            if ($sales_count == 0 && $count == 1) {
+                drupal_set_message(t('Please accept the SALES AGREEMENT to enter into the WEBSITE.'));
+                drupal_goto('user/' . $user->uid . '/edit');
+            } else if ($sales_count == 0 && $count == 0) {
+                drupal_set_message(t('Please accept the USER AGREEMENT to enter into the WEBSITE.'));
+                drupal_set_message(t('Please accept the SALES AGREEMENT to enter into the WEBSITE.'));
+                drupal_goto('user/' . $user->uid . '/edit');
+            } else if ($sales_count == 1 && $count == 0) {
+                drupal_set_message(t('Please accept the USER AGREEMENT to enter into the WEBSITE.'));
+                drupal_goto('user/' . $user->uid . '/edit');
+            }
+        }
+    }
+}
+
+/*
+ * Implementation of hook_menu
+ */
+
+function custom_features_menu() {
+    $items = array();
+    $items['admin/settings/role_user_limit'] = array(
+        'title' => t('User Limit per Role'),
+        'description' => t('User Limit per Role/OG.'),
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('role_user_limit_admin_settings_form'),
+        'access arguments' => array('administer content'),
+        'file' => 'custom_features.admin.inc',
+        'type' => MENU_NORMAL_ITEM
+    );
+    $items['admin/settings/contest_deadline'] = array(
+        'title' => t('Contest Deadline'),
+        'description' => t(''),
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('contest_deadline_admin_settings_form'),
+        'access arguments' => array('administer content'),
+        'file' => 'custom_features.admin.inc',
+        'type' => MENU_NORMAL_ITEM
+    );
+//    $items['sales_user_list'] = array(
+//        'title' => t('Sales Users'),
+//        'description' => t(''),
+//        'page callback' => 'sales_user_list',
+//        'page arguments' => array('sales_user_list'),
+//        'access arguments' => array('administer content'),
+//        'file' => 'custom_features.admin.inc',
+//        'type' => MENU_NORMAL_ITEM,
+//    );
+//    $items['coupon_code_list'] = array(
+//        'title' => t('Coupon code'),
+//        'description' => t(''),
+//        'page callback' => 'coupon_code_list',
+//        'page arguments' => array('coupon_code_list'),
+//        'access arguments' => array('administer content'),
+//        'file' => 'custom_features.admin.inc',
+//        'type' => MENU_CALLBACK,
+//    );
+//    $items['associate_coupon_code_with_user'] = array(
+//        'title' => t('Associate Coupon Code'),
+//        'description' => t(''),
+//        'page callback' => 'associate_coupon_code_with_user',
+//        'page arguments' => array('associate_coupon_code_with_user'),
+//        'access arguments' => array('administer content'),
+//        'file' => 'custom_features.admin.inc',
+//        'type' => MENU_CALLBACK,
+//    );
+    $items['admin_sales_report'] = array(
+        'title' => t('Admin Sales Report'),
+        'description' => t(''),
+        'page callback' => 'admin_sales_report',
+        'page arguments' => array('admin_sales_report'),
+        'access arguments' => array('administer content'),
+        'file' => 'custom_features.admin.inc',
+        'type' => MENU_CALLBACK,
+    );
+    $items['sales_report'] = array(
+        'title' => t('Sales Report'),
+        'description' => t(''),
+        'page callback' => 'sales_report',
+        'access callback' => 'custom_features_sales_report',
+        'type' => MENU_CALLBACK,
+    );
+    $items['complete_sales_report'] = array(
+        'title' => t('Sales Report'),
+        'description' => t(''),
+        'page callback' => 'complete_sales_report',
+        'access callback' => 'custom_features_complete_sales_report',
+        'type' => MENU_CALLBACK,
+    );
+    $items['publish-style'] = array(
+        'title' => 'Publish style',
+        'page callback' => 'custom_features_publish_style',
+        'access callback' => true,
+        'type' => MENU_CALLBACK,
+    );
+    $items['unpublish-style'] = array(
+        'title' => 'Unpublish style',
+        'page callback' => 'custom_features_unpublish_style',
+        'access callback' => true,
+        'type' => MENU_CALLBACK,
+    );
+    $items['disassociate-from-hcf'] = array(
+        'title' => 'Ungroup',
+        'page callback' => 'custom_features_disassociate_from_hcf',
+        'access callback' => true,
+        'type' => MENU_CALLBACK,
+    );
+    $items['disassociate-hcp'] = array(
+        'title' => 'Ungroup',
+        'page callback' => 'custom_features_disassociate_hcp',
+        'access callback' => true,
+        'type' => MENU_CALLBACK,
+    );
+    $items['request_membership'] = array(
+        'title' => 'Join group',
+        'page callback' => 'custom_features_request_membership',
+        'access callback' => true,
+        'type' => MENU_CALLBACK,
+    );
+    $items['accept_membership'] = array(
+        'title' => 'Accept request',
+        'page callback' => 'custom_features_accept_membership',
+        'access callback' => true,
+        'type' => MENU_CALLBACK,
+    );
+    $items['reject_membership'] = array(
+        'title' => 'Reject request',
+        'page callback' => 'custom_features_reject_membership',
+        'access callback' => true,
+        'type' => MENU_CALLBACK,
+    );
+    $items['cancel_membership_request'] = array(
+        'title' => 'Join group',
+        'page callback' => 'custom_features_cancel_membership_request',
+        'access callback' => true,
+        'type' => MENU_CALLBACK,
+    );
+    $items['user_text'] = array(
+        'title' => 'Hair Care ChairResults User Agreement',
+        'page callback' => 'custom_features_user_agreement_document',
+        'access callback' => true,
+        'type' => MENU_CALLBACK,
+    );
+    $items['sales_text'] = array(
+        'title' => 'Hair Care ChairResults Sales Agreement',
+        'page callback' => 'custom_features_sales_agreement_document',
+        'access callback' => 'custom_features_sales_doc_access',
+        'type' => MENU_CALLBACK,
+    );
+    $items['my_facility'] = array(
+        'title' => 'My Facility',
+        'page callback' => 'custom_features_my_facility',
+        'access callback' => 'custom_features_my_facility_access',
+        'menu_name' => 'user-menu',
+        'weight' => -45,
+    );
+
+    return $items;
+}
+
+//CUSTOM FEATURE to restrict sales document
+function custom_features_sales_doc_access($account) {
+    global $user;
+
+    if (in_array('Sales Manager', array_values($user->roles)) || in_array('Sales Associate', array_values($user->roles))) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+//CUSTOM FEATURE to restrict My Facility
+function custom_features_my_facility_access($account) {
+    global $user;
+
+    if ($user->uid) {
+        $gid = og_get_groups_by_user($user);
+        foreach ($gid as $g) {
+            $group = node_load($g);
+            if ($group->nid != 0) {
+                return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
+}
+
+//CUSTOM FEATURE to restrict sales user product
+function custom_features_sales_report($account) {
+    global $user;
+
+    if (in_array('Sales Manager', array_values($user->roles)) || in_array('Sales Associate', array_values($user->roles))) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+function custom_features_complete_sales_report($account) {
+    global $user;
+    if (isset($_GET['uid'])) {
+        $uid = $_GET['uid'];
+    }
+    if (in_array('Sales Manager', array_values($user->roles))) {
+        return TRUE;
+    }
+    if (in_array('Sales Associate', array_values($user->roles))) {
+        if ($user->uid == $uid) {
+            return TRUE;
+        }
+    }
+    if (in_array('Super administrator', array_values($user->roles))) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+/*
+ * implementation of hook_node_insert
+ */
+
+function custom_features_node_insert($node) {
+    if ($node->type == 'hairstyle') {
+
+        db_update('node')->fields(
+                        array(
+                            'status' => 0
+                        )
+                )
+                ->condition('nid', $node->nid, '=')
+                ->execute();
+    }
+}
+
+/*
+ * implementation of hook_user_insert
+ */
+
+function custom_features_user_insert(&$edit, $account, $category) {
+    if (isset($_SESSION['hcf_id']) && $_SESSION['hcf_id'] != 0) {
+        $hcf_id = $_SESSION['hcf_id'];
+        unset($_SESSION['hcf_id']);
+        $hcf = node_load($hcf_id);
+        $hcf->uid = $account->uid;
+        node_save($hcf);
+    }
+
+    //Custom feature to insert row in user agreement
+    if (isset($account->terms) && $account->terms != '') {
+        db_insert('agreement')->fields(
+                array(
+                    'uid' => $account->uid,
+                    'user_agreement' => $account->terms,
+                    'sales_agreement' => 0,
+                    'welcome_email' => 0,
+                )
+        )->execute();
+    } else {
+        db_insert('agreement')->fields(
+                array(
+                    'uid' => $account->uid,
+                    'user_agreement' => 0,
+                    'sales_agreement' => 0,
+                    'welcome_email' => 0,
+                )
+        )->execute();
+    }
+}
+
+/*
+ * implementation of hook_user_delete
+ */
+
+function custom_features_user_delete($account) {
+    db_delete('agreement')->condition('uid', $account->uid)->execute();
+}
+
+/*
+ * implementation of hook_menu_alter
+ */
+
+function custom_features_menu_alter(&$items) {
+    $items['user/register']['access callback'] = FALSE;
+}
+
+/*
+ * implementation of hook_form_alter
+ */
+
+function custom_features_form_alter(&$form, &$form_state, $form_id) {
+    global $user;
+    global $base_url;
+    $uid = arg(1);
+    // Custom features added in HAIRSTYLE node form
+    if ($form_id == 'hairstyle_node_form') {
+        $date = date("d");
+        $result = variable_get("contest_deadline", 10);
+        $form['field_enter_the_contest']['#suffix'] = '<div id="help"><a href="?inline=true#contest-popup"  class="colorbox-inline">Help?</a></div>';
+        if ($result < $date) {
+            unset($form['field_enter_the_contest']);
+            $form['field_enter_the_contest']['#suffix'] = '';
+        }
+        if (!isset($form['nid']['#value']))
+            $gid = og_get_groups_by_user($user);
+        foreach ($gid as $g) {
+            $group = node_load($g);
+        }
+        foreach ($group->field_marketing_city['und'] as $mc) {
+            $query = db_select("taxonomy_term_data", "ts");
+            $query->fields("ts", array("name"));
+            $query->where("tid=" . $mc['tid']);
+            $result = $query->execute()->fetchField();
+            $existing[] = '"' . $result . '"';
+            $default_values = implode(",", $existing);
+        }
+        $form['field_marketing_city']['und']['#default_value'] = $default_values;
+    }
+
+    // Custom features added in DEAL node form
+    if ($form_id == 'deal_node_form' && !isset($form['nid']['#value'])) {
+        $gid = og_get_groups_by_user($user);
+        foreach ($gid as $g) {
+            $group = node_load($g);
+        }
+        foreach ($group->field_marketing_city['und'] as $mc) {
+            $query = db_select("taxonomy_term_data", "ts");
+            $query->fields("ts", array("name"));
+            $query->where("tid=" . $mc['tid']);
+            $result = $query->execute()->fetchField();
+            $existing[] = '"' . $result . '"';
+            $default_values = implode(",", $existing);
+        }
+        $form['field_marketing_city']['und']['#default_value'] = $default_values;
+    }
+
+
+//    if (isset($_GET['contest']) && $_GET['contest'] == 1 && $form_id == 'hairstyle_node_form') {
+//        $form['#after_build'][] = 'custom_features_enter_the_contest';
+//    }
+    // Custom features added in HAIR CARE FACILITY node form
+    if ($form_id == 'hair_care_facility_node_form') {
+        if ($form['nid']['#value'] != '' && $user->uid == $form['uid']['#value']) {
+            if (in_array('Stylist Gold', array_values($user->roles))) {
+                $query = db_select("url_alias", "url");
+                $query->fields("url", array("alias"));
+                $query->condition('source', 'node/' . $form['nid']['#value'], '=');
+                $result = $query->execute()->fetchField();
+                $form['url'] = array(
+                    '#type' => 'textfield',
+                    '#title' => 'Url',
+                    '#default_value' => $result,
+                    '#weight' => 6,
+                );
+                $form['#validate'][] = 'hcf_url_validate';
+                $form['#submit'][] = 'update_hcf_url';
+            }
+        }
+        if ($form['uid']['#value'] == 0) {
+            if (isset($_GET['token'])) {
+                $token = $_GET['token'];
+                $_SESSION['token'] = $token;
+            }
+            $form['actions']['submit']['#submit'][] = 'custom_features_redirect';
+        }
+    }
+
+    // Custom features added in USER REGISTER form    
+    if ($form_id == 'user_register_form') {
+
+        //Custom feature to pre-pop email field when user was inited by Sales Representative
+        if (isset($_SESSION['token']) && $_SESSION['token'] != '') {
+            $token = $_SESSION['token'];
+            $token = str_replace(' ', '', $token);
+            unset($_SESSION['token']);
+            $query = db_select("invitations_by_sr", "sr");
+            $query->fields("sr", array("email"));
+            $query->condition('token', $token, '=');
+            $result = $query->execute()->fetchField();
+            $form['account']['mail']['#default_value'] = $result;
+        }
+
+        //Custom feature to Handle User agreement
+        if (!user_access('administer users')) {
+            $form['agreement'] = array(
+                '#type' => 'fieldset',
+                '#title' => t('Agreement')
+            );
+            $form['agreement']['terms'] = array(
+                '#type' => 'checkbox',
+                '#title' => 'I certify that i read and agree with this',
+                '#suffix' => '<a href="' . $base_url . '/user_text?width=900&height=800&iframe=true"  class="colorbox-load">User Agreement</a>',
+                '#required' => TRUE,
+            );
+        }
+    }
+
+    // Custom features added in USER PROFILE node form
+    if ($form_id == 'user_profile_form') {
+        //Pre pop Stylist name when user create account through invitation
+        if (isset($_GET['fname']) && isset($_GET['lname'])) {
+            $fname = $_GET['fname'];
+            $lname = $_GET['lname'];
+            $form['profile_stylist']['field_stylist_name']['und'][0]['value']['#default_value'] = $fname . " " . $lname;
+        }
+
+        //Custom fieldset to show user's group on his/her profile page
+        $account = user_load($user->uid);
+        $gid = og_get_groups_by_user($account);
+        foreach ($gid as $g) {
+            $group = node_load($g);
+            $query = db_select("url_alias", "url");
+            $query->fields("url", array("alias"));
+            $query->condition('url.source', 'node/' . $group->nid, '=');
+            $result = $query->execute()->fetchField();
+
+            $form['fieldset'] = array(
+                '#type' => 'fieldset',
+                '#title' => t('Disassociate'),
+                '#weight' => 5
+            );
+            if (isset($group->field_image_of_facility['und'][0]['uri'])) {
+                $image_url = $group->field_image_of_facility['und'][0]['uri'];
+            }
+            $image_uri_with_style = image_style_url('hcf', $image_url);
+            $form['fieldset']['image'] = array(
+                '#title' => t('Title'),
+                '#markup' => l('<img src="' . $image_uri_with_style . '" alt="' . $group->title . '" />', $result, array('html' => TRUE, 'attributes' => array("class" => "edit-profile-hcf-pic", "rel" => "hairstyles")))
+            );
+            $form['fieldset']['hcf'] = array(
+                '#title' => t('Title'),
+                '#markup' => l(t($group->title), $result, array('attributes' => array("class" => "edit-profile-custom-link")))
+            );
+            $query = db_select("node", "node");
+            $query->fields("node", array("uid"));
+            $query->where("uid=" . $user->uid);
+            $query->where("type='hair_care_facility'");
+            $results = $query->execute()->fetchField();
+            if ($group->nid != 0 && $user->uid == $uid && $results == 0) {
+                $form['fieldset']['disassociate'] = array(
+                    '#markup' => l(t('Disassociate'), 'disassociate-from-hcf', array('query' => array('group_type' => "node", 'gid' => $group->nid, 'entity_type' => "user", 'etid' => $user->uid), 'html' => TRUE, 'attributes' => array('onclick' => "return disassociate_from_hcf();", "class" => "edit-profile-custom-link")))
+                );
+            }
+        }
+
+        //Custom features to Handle USER AGREEMENT
+        if (!in_array('Sales Manager', array_values($user->roles)) && !in_array('Sales Associate', array_values($user->roles))) {
+            $query = db_select("agreement", "a");
+            $query->fields("a", array("id"));
+            $query->condition('uid', $user->uid, '=');
+            $query->condition('user_agreement', 1, '=');
+            $num_rows = $query->execute();
+            $count = $num_rows->rowCount();
+            if ($count == 0) {
+                $form['agreement'] = array(
+                    '#type' => 'fieldset',
+                    '#title' => t('Agreement')
+                );
+                $form['agreement']['terms'] = array(
+                    '#type' => 'checkbox',
+                    '#title' => 'I certify that i read and agree with this',
+                    '#suffix' => '<a href="' . $base_url . '/user_text?width=900&height=800&iframe=true"  class="colorbox-load">User Agreement</a>',
+                    '#required' => TRUE,
+                );
+                $form['#submit'][] = 'update_agreement';
+            }
+        }
+        //Custom features to Handle USER AGREEMENT and SALES AGREEMENT of SALES Representatives
+        if (in_array('Sales Manager', array_values($user->roles)) || in_array('Sales Associate', array_values($user->roles))) {
+            $users = db_select("agreement", "a");
+            $users->fields("a", array("id"));
+            $users->condition('uid', $user->uid, '=');
+            $users->condition('user_agreement', 1, '=');
+            $users_num_rows = $users->execute();
+            $users_count = $users_num_rows->rowCount();
+            $sales = db_select("agreement", "sa");
+            $sales->fields("sa", array("id"));
+            $sales->condition('uid', $user->uid, '=');
+            $sales->condition('sales_agreement', 1, '=');
+            $sales_num_rows = $sales->execute();
+            $sales_count = $sales_num_rows->rowCount();
+            $welcome_email = db_select("agreement", "a");
+            $welcome_email->fields("a", array("id"));
+            $welcome_email->condition('uid', $user->uid, '=');
+            $welcome_email->condition('welcome_email', 1, '=');
+            $welcome_email_num_rows = $welcome_email->execute();
+            $welcome_email_count = $welcome_email_num_rows->rowCount();
+            if ($welcome_email_count == 0) {
+                $form['#submit'][] = 'send_welcome_email';
+            }
+            if ($sales_count == 0 && $users_count == 0) {
+                $form['agreement'] = array(
+                    '#type' => 'fieldset',
+                    '#title' => t('Agreement')
+                );
+                $form['agreement']['terms'] = array(
+                    '#type' => 'checkbox',
+                    '#title' => 'I certify that i read and agree with this',
+                    '#suffix' => '<a href="' . $base_url . '/user_text?width=900&height=800&iframe=true"  class="colorbox-load">User Agreement</a>',
+                    '#required' => TRUE,
+                );
+                $form['agreement']['sa_terms'] = array(
+                    '#type' => 'checkbox',
+                    '#title' => 'I certify that i read and agree with this',
+                    '#suffix' => '<a href="' . $base_url . '/sales_text?width=900&height=800&iframe=true"  class="colorbox-load">Sales Agreement</a>',
+                    '#required' => TRUE,
+                );
+                $form['#submit'][] = 'update_agreement';
+            } else if ($sales_count == 0 && $users_count == 1) {
+                $form['agreement'] = array(
+                    '#type' => 'fieldset',
+                    '#title' => t('Agreement')
+                );
+                $form['agreement']['sa_terms'] = array(
+                    '#type' => 'checkbox',
+                    '#title' => 'I certify that i read and agree with this',
+                    '#suffix' => '<a href="' . $base_url . '/sales_text?width=900&height=800&iframe=true"  class="colorbox-load">Sales Agreement</a>',
+                    '#required' => TRUE,
+                );
+                $form['#submit'][] = 'update_agreement';
+            } else if ($sales_count == 1 && $users_count == 0) {
+                $form['agreement'] = array(
+                    '#type' => 'fieldset',
+                    '#title' => t('Agreement')
+                );
+                $form['agreement']['terms'] = array(
+                    '#type' => 'checkbox',
+                    '#title' => 'I certify that i read and agree with this',
+                    '#suffix' => '<a href="' . $base_url . '/user_text?width=900&height=800&iframe=true"  class="colorbox-load">User Agreement</a>',
+                    '#required' => TRUE,
+                );
+                $form['#submit'][] = 'update_agreement';
+            }
+        }
+
+        //Custom URL field to update user's profile URL only for STYLIST GOLD
+        if (in_array('Stylist Gold', array_values($user->roles))) {
+            $query = db_select("url_alias", "url");
+            $query->fields("url", array("alias"));
+            $query->condition('source', 'user/' . $form['#user']->uid, '=');
+            $result = $query->execute()->fetchField();
+            $form['url_alias'] = array(
+                '#type' => 'textfield',
+                '#title' => 'Url',
+                '#default_value' => $result,
+                '#weight' => 4,
+            );
+            $form['#validate'][] = 'hcp_url_validate';
+            $form['#submit'][] = 'update_hcp_url';
+        }
+        $form['#submit'][] = 'custom_features_profile_redirect';
+    }
+}
+
+function hcf_url_validate($form, &$form_state) {
+    $url = $form_state['input']['url'];
+    if ($url != '') {
+        $query = db_select("url_alias", "url");
+        $query->fields("url", array("alias"));
+        $query->condition('url.alias', $url, '=');
+        $query->condition('source', 'node/' . $form['nid']['#value'], '!=');
+        $result = $query->execute()->fetchField();
+        $num_rows = $query->execute();
+        $count = $num_rows->rowCount();
+        if ($count == 1) {
+            form_set_error('Node Url', t('The selected url already exists. Please choose another one'));
+        }
+    }
+}
+
+function update_hcf_url($form, &$form_state) {
+    $url = $form_state['input']['url'];
+    db_update('url_alias')->fields(
+                    array(
+                        'alias' => $url
+                    )
+            )
+            ->condition('source', 'node/' . $form['nid']['#value'], '=')
+            ->execute();
+}
+
+function hcp_url_validate($form, &$form_state) {
+    $url = $form_state['input']['url_alias'];
+    if ($url != '') {
+        $query = db_select("url_alias", "url");
+        $query->fields("url", array("alias"));
+        $query->condition('url.alias', $url, '=');
+        $query->condition('source', 'user/' . $form['#user']->uid, '!=');
+        $result = $query->execute()->fetchField();
+        $num_rows = $query->execute();
+        $count = $num_rows->rowCount();
+        if ($count == 1) {
+            form_set_error('Node Url', t('The selected url already exists. Please choose another one'));
+        }
+    }
+}
+
+function update_hcp_url($form, &$form_state) {
+    $url = $form_state['input']['url_alias'];
+    db_update('url_alias')->fields(
+                    array(
+                        'alias' => $url
+                    )
+            )
+            ->condition('source', 'user/' . $form['#user']->uid, '=')
+            ->execute();
+}
+
+function update_agreement($form, &$form_state) {
+
+    if (isset($form_state['input']['terms']) && !isset($form_state['input']['sa_terms'])) {
+        db_update('agreement')->fields(
+                        array(
+                            'user_agreement' => $form_state['input']['terms']
+                        )
+                )
+                ->condition('uid', $form['#user']->uid, '=')
+                ->execute();
+    } else if (!isset($form_state['input']['terms']) && isset($form_state['input']['sa_terms'])) {
+        db_update('agreement')->fields(
+                        array(
+                            'sales_agreement' => $form_state['input']['sa_terms']
+                        )
+                )
+                ->condition('uid', $form['#user']->uid, '=')
+                ->execute();
+    } else if (isset($form_state['input']['terms']) && isset($form_state['input']['sa_terms'])) {
+        db_update('agreement')->fields(
+                        array(
+                            'user_agreement' => $form_state['input']['terms'],
+                            'sales_agreement' => $form_state['input']['sa_terms']
+                        )
+                )
+                ->condition('uid', $form['#user']->uid, '=')
+                ->execute();
+    }
+}
+
+function custom_features_redirect($form, &$form_state) {
+    $_SESSION['hcf_id'] = $form_state['build_info']['args'][0]->nid;
+    $form_state['redirect'] = 'stylist/register';
+}
+
+function custom_features_profile_redirect($form, &$form_state) {
+    global $user;
+    $query = db_select("url_alias", "url");
+    $query->fields("url", array("alias"));
+    $query->condition('url.source', 'user/' . $user->uid, '=');
+    $result = $query->execute()->fetchField();
+//    $result = strtolower(str_replace(' ', '', $user->name));
+    $form_state['redirect'] = $result;
+}
+
+function send_welcome_email($form, &$form_state) {
+    global $user;
+    $my_module = 'custom_features';
+    $my_mail_token = 'welcome_email';
+    $from = variable_get('site_mail');
+    $tomail = $form['#user']->mail;
+    $name = $form['#user']->name;
+    if (in_array('Sales Manager', array_values($form['#user']->roles)) || in_array('Sales Associate', array_values($form['#user']->roles))) {
+        $message = array(
+            'id' => $my_module . '_' . $my_mail_token,
+            'to' => $tomail,
+            'subject' => 'Welcome to the ChairResults sales team',
+            'body' => 'Hello ' . $name . ',<br><br>
+This email is to notify you that your Hair Care ChairResults (HCCR) account is now active.<br><br>
+
+Thanks,<br>
+ChairResults Management Team',
+            'headers' => array(
+                'From' => $from,
+                'Sender' => 'ChairResults',
+                'Return-Path' => $from,
+                'Content-Type' => 'text/html; charset=UTF-8;',
+            ),
+        );
+        $system = drupal_mail_system($my_module, $my_mail_token);
+        if ($system->mail($message)) {
+            drupal_set_message(t('Welcome Email has been sent to your email.'));
+            db_update('agreement')->fields(
+                            array(
+                                'welcome_email' => 1
+                            )
+                    )
+                    ->condition('uid', $form['#user']->uid, '=')
+                    ->execute();
+        } else {
+            drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+        }
+    }
+}
+
+//Products sold by logged in sales person
+function sales_report() {
+    $elements = drupal_get_form("products_sold_per_user_date_range");
+    $form = drupal_render($elements);
+    if (isset($_SESSION['start_date']) && isset($_SESSION['end_date'])) {
+        $start_date = $_SESSION['start_date'];
+        $end_date = $_SESSION['end_date'];
+        unset($_SESSION['start_date']);
+        unset($_SESSION['end_date']);
+        $unix_start_date = strtotime($start_date . '00:00');
+        $unix_end_date = strtotime($end_date . '23:59:59');
+    } else {
+        $day = date("d");
+        if ($day >= 14) {
+            $current_month = date("m");
+            $next_month = $current_month + 1;
+            $current_year = date("Y");
+            $start_date = $current_year . "/" . $current_month . "/" . "14";
+            $end_date = $current_year . "/" . $next_month . "/" . "13";
+            $unix_start_date = strtotime($start_date . '00:00');
+            $unix_end_date = strtotime($end_date . '23:59:59');
+        } else {
+            $current_month = date("m");
+            $previous_month = $current_month - 1;
+            $current_year = date("Y");
+            $start_date = $current_year . "/" . $previous_month . "/" . "14";
+            $end_date = $current_year . "/" . $current_month . "/" . "13";
+            $unix_start_date = strtotime($start_date . '00:00');
+            $unix_end_date = strtotime($end_date . '23:59:59');
+        }
+    }
+    global $user;
+    $i = 1;
+    $uid[$i] = $user->uid;
+    $subusers = subuser_load_all($user);
+    foreach ($subusers as $subuser) {
+        $i++;
+        $uid[$i] = $subuser;
+    }
+    $coupon = '<div class="products-sold">';
+    $coupon .= $form;
+    $coupon .= '<div style="float:left;width:100%;font-size:16px;margin-bottom:10px;">The result shown below starts from <strong>' . $start_date . '</strong> and Ends at <strong>' . $end_date . '</strong></div>';
+    $coupon .= '<div style="float: left; padding-bottom:5px; border-bottom: 3px solid #e3e3e3; width: 100%; font-size:16px;">
+                <div style="float:left;width:20%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">Users</div>
+                </div>
+                <div style="float:left;width:20%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">Sales</div>
+                </div>
+                <div style="float:left;width:20%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">Products Total</div>
+                </div>
+                <div style="float:left;width:20%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">Sales Manager Incent</div>
+                </div>
+                <div style="float:left;width:20%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">Sales Associate Incent</div>
+                </div>
+                </div>';
+    foreach ($uid as $userid) {
+
+        $coupon_query = db_query("SELECT sr.uid, u.uid as purchaser_id, r.name as rname from invitations_by_sr sr INNER JOIN users u on sr.email = u.mail LEFT JOIN users_roles ur ON sr.uid = ur.uid LEFT JOIN role r on r.rid = ur.rid WHERE sr.uid = $userid");
+        $count = $coupon_query->rowCount();
+        $sales_count = 0;
+        $total = 0;
+        $sm_incent = 0;
+        $sa_incent = 0;
+        if ($count > 0) {
+            foreach ($coupon_query as $coupon_query_result) {
+                $query = db_query("SELECT order_total FROM uc_orders
+                       WHERE (order_status = 'completed' OR order_status = 'payment_received') AND uid =" . $coupon_query_result->purchaser_id . "
+                       AND created BETWEEN $unix_start_date AND $unix_end_date");
+                $query_count = $query->rowCount();
+                $sales_count += $query_count;
+                $user_name = db_query("SELECT name FROM users WHERE uid = " . $coupon_query_result->uid);
+                foreach ($user_name as $user_name_result) {
+                    foreach ($query as $query_result) {
+                        $total += $query_result->order_total;
+                    }
+                }
+            }
+            if ($coupon_query_result->rname == "Sales Manager") {
+                $sm_incent = ($total / 100) * 50;
+                $sa_incent = 0;
+            } else if ($coupon_query_result->rname == "Sales Associate") {
+                $sm_incent = ($total / 100) * 10;
+                $sa_incent = ($total / 100) * 40;
+            }
+            $coupon .= '<div style="float: left; padding:5px 0; border-bottom: 1px dashed #d2d2d2; width: 100%; font-size:16px;">
+                        <div style="float:left;width:20%;min-height:24px;">';
+            $coupon .= '<div class="data">
+                        <a style="color: #28a8e2;" href="complete_sales_report?uid=' . $coupon_query_result->uid . '">';
+            $coupon .= $user_name_result->name;
+            $coupon .= '</a>
+                        </div>
+                        </div>';
+            $coupon .= '<div style="float:left;width:20%;min-height:24px;">
+                        <div class="data">';
+            $coupon .= $sales_count;
+            $coupon .= '</div>
+                        </div>';
+            $coupon .= '<div style="float:left;width:20%;min-height:24px;">
+                        <div class="data">';
+            $coupon .= $total;
+            $coupon .= '</div>
+                        </div>';
+            $coupon .= '<div style="float:left;width:20%;min-height:24px;">
+                        <div class="data">';
+            $coupon .= $sm_incent;
+            $coupon .= '</div>
+                        </div>';
+            $coupon .= '<div style="float:left;width:20%;min-height:24px;">
+                        <div class="data">';
+            $coupon .= $sa_incent;
+            $coupon .= '</div>
+                        </div>
+                        </div>';
+        }
+    }
+    $coupon .= '</div>';
+    return $coupon;
+}
+
+function products_sold_per_user_date_range() {
+    $form['start_date'] = array(
+        '#title' => t('Start Date'),
+        '#date_format' => 'Y/m/d',
+        '#date_year_range' => '-40:+30',
+        '#type' => 'date_popup',
+        '#required' => TRUE,
+        '#prefix' => '<div class="products-sold-form-item">',
+        '#suffix' => '</div>'
+    );
+    $form['end_date'] = array(
+        '#title' => t('End Date'),
+        '#date_format' => 'Y/m/d',
+        '#date_year_range' => '-40:+30',
+        '#type' => 'date_popup',
+        '#required' => TRUE,
+        '#prefix' => '<div class="products-sold-form-item">',
+        '#suffix' => '</div>'
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Submit',
+        '#prefix' => '<div class="products-sold-form-button">',
+        '#suffix' => '</div>'
+    );
+    $form['#submit'][] = 'products_sold_per_user_date_range_form_submit';
+    return $form;
+}
+
+function products_sold_per_user_date_range_form_submit($form, &$form_state) {
+//    echo '<pre/>';print_r($form_state);exit;
+    $_SESSION['start_date'] = $form_state['input']['start_date']['date'];
+    $_SESSION['end_date'] = $form_state['input']['end_date']['date'];
+    $form_state['redirect'] = 'sales_report';
+}
+
+function complete_sales_report() {
+    if (isset($_GET['uid'])) {
+        $uid = $_GET['uid'];
+        $coupon = '<div class="products-sold" style="float:left;width:100%;">
+                <div style="float: left; padding-bottom:5px; border-bottom: 3px solid #e3e3e3; width: 100%; font-size:16px;">
+                <div style="float:left;width:30%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">HCF Name</div>
+                </div>
+                <div style="float:left;width:10%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">ID</div>
+                </div>
+                <div style="float:left;width:10%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">SM</div>
+                </div>
+                <div style="float:left;width:10%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">SA</div>
+                </div>
+                <div style="float:left;width:20%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">Sales Date</div>
+                </div>
+                <div style="float:left;width:20%;min-height:24px;">
+                <div style="margin-bottom:0px;text-decoration:none;float:left;color: #28a8e2;">Sales Amount</div>
+                </div>
+                </div>';
+        $user_name = db_query("SELECT sr.uid, u.uid as purchaser_id, r.name as rname from invitations_by_sr sr INNER JOIN users u on sr.email = u.mail LEFT JOIN users_roles ur ON sr.uid = ur.uid LEFT JOIN role r on r.rid = ur.rid WHERE sr.uid = $uid");
+        $count = $user_name->rowCount();
+        if ($count > 0) {
+            foreach ($user_name as $result) {
+                $query = db_query("SELECT uid, order_id, order_total, created FROM uc_orders
+                       WHERE (order_status = 'completed' OR order_status = 'payment_received') AND uid =" . $result->purchaser_id);
+                foreach ($query as $query_result) {
+//                echo '<pre/>';print_r($query_result);
+                    $account = user_load($query_result->uid);
+                    $gid = og_get_groups_by_user($account);
+                    foreach ($gid as $g) {
+                        $group = node_load($g);
+                    }
+                    $created_date = date('m/d/Y', $query_result->created);
+                    $total = $query_result->order_total;
+                    if ($result->rname == "Sales Manager") {
+                        $sm_incent = ($total / 100) * 50;
+                        $sa_incent = 0;
+                    } else if ($result->rname == "Sales Associate") {
+                        $sm_incent = ($total / 100) * 10;
+                        $sa_incent = ($total / 100) * 40;
+                    }
+                    $coupon .= '<div style="float: left; padding:5px 0; border-bottom: 1px dashed #d2d2d2; width: 100%; font-size:16px;">
+                        <div style="float:left;width:30%;min-height:24px;">';
+                    $coupon .= '<div class="data">';
+                    $coupon .= $group->title;
+                    $coupon .= '</div>
+                        </div>';
+                    $coupon .= '<div style="float:left;width:10%;min-height:24px;">
+                        <div class="data">';
+                    $coupon .= $query_result->order_id;
+                    $coupon .= '</div>
+                        </div>';
+                    $coupon .= '<div style="float:left;width:10%;min-height:24px;">
+                        <div class="data">';
+                    $coupon .= $sm_incent;
+                    $coupon .= '</div>
+                        </div>';
+                    $coupon .= '<div style="float:left;width:10%;min-height:24px;">
+                        <div class="data">';
+                    $coupon .= $sa_incent;
+                    $coupon .= '</div>
+                        </div>';
+                    $coupon .= '<div style="float:left;width:20%;min-height:24px;">
+                        <div class="data">';
+                    $coupon .= $created_date;
+                    $coupon .= '</div>
+                        </div>';
+                    $coupon .= '<div style="float:left;width:20%;min-height:24px;">
+                        <div class="data">';
+                    $coupon .= $total;
+                    $coupon .= '</div>
+                        </div>
+                        </div>';
+                }
+            }
+        }
+        $coupon .= '</div>';
+        return $coupon;
+    }
+}
+
+//Publish and unpublish nodes based on role of logged in users on styles of logged in users page. 
+function custom_features_publish_style() {
+    if (isset($_GET['uid']) && isset($_GET['nid'])) {
+        $uid = $_GET['uid'];
+        $nid = $_GET['nid'];
+    }
+    $query = db_query("SELECT r.name FROM role r LEFT JOIN users_roles ur ON r.rid = ur.rid
+                       LEFT JOIN users u ON ur.uid = u.uid WHERE u.uid = '$uid'");
+    $record = $query->fetchObject();
+    if ($record->name == 'Stylist') {
+        $node_count = db_query("SELECT * FROM node WHERE uid = '$uid' AND status = 1 AND type = 'hairstyle'");
+        $count = $node_count->rowCount();
+        if ($count == 3) {
+            drupal_set_message(t('Sorry Your published styles exceeded your limit.'), 'error');
+            drupal_goto('styles-of-logged-in-user');
+        } else if ($count < 3) {
+            update_db_on_publish($nid);
+        }
+    } else if ($record->name == 'Stylist Premium') {
+        $node_count = db_query("SELECT * FROM node WHERE uid = '$uid' AND status = 1 AND type = 'hairstyle'");
+        $count = $node_count->rowCount();
+        if ($count == 6) {
+            drupal_set_message(t('Sorry Your published styles exceeded your limit.'), 'error');
+            drupal_goto('styles-of-logged-in-user');
+        } else if ($count < 6) {
+            update_db_on_publish($nid);
+        }
+    }
+    if ($record->name == 'Stylist Gold') {
+        $node_count = db_query("SELECT * FROM node WHERE uid = '$uid' AND status = 1 AND type = 'hairstyle'");
+        $count = $node_count->rowCount();
+        if ($count == 12) {
+            drupal_set_message(t('Sorry Your published styles exceeded your limit.'), 'error');
+            drupal_goto('styles-of-logged-in-user');
+        } else if ($count < 12) {
+            update_db_on_publish($nid);
+        }
+    }
+}
+
+function update_db_on_publish($nid) {
+    db_update('node')->fields(
+                    array(
+                        'status' => 1
+                    )
+            )
+            ->condition('nid', $nid, '=')
+            ->execute();
+    drupal_goto('styles-of-logged-in-user');
+}
+
+function custom_features_unpublish_style() {
+//    print_r('here');exit;
+    if (isset($_GET['nid'])) {
+        $nid = $_GET['nid'];
+    }
+    db_update('node')->fields(
+                    array(
+                        'status' => 0
+                    )
+            )
+            ->condition('nid', $nid, '=')
+            ->execute();
+    drupal_goto('styles-of-logged-in-user');
+}
+
+function custom_features_disassociate_from_hcf() {
+    if (isset($_GET['group_type']) && isset($_GET['gid']) && isset($_GET['entity_type']) && isset($_GET['etid'])) {
+        $group_type = $_GET['group_type'];
+        $gid = $_GET['gid'];
+        $entity_type = $_GET['entity_type'];
+        $etid = $_GET['etid'];
+
+        //To disassociate user from hcf
+        og_ungroup($group_type, $gid, $entity_type, $etid);
+
+        //To unpublish content of disassociated user
+        $query = db_select("node", "node");
+        $query->fields("node", array("nid"));
+        $query->where("uid=" . $etid);
+        $result = db_query($query);
+        foreach ($result as $record) {
+            $node = node_load($record->nid);
+            $node->status = 0;
+            node_save($node);
+        }
+        //To send email to disassociated user
+        //To select disassociated users email address
+        $d_user = db_select("users", "us");
+        $d_user->fields("us", array("mail"));
+        $d_user->fields("us", array("name"));
+        $d_user->where("uid=" . $etid);
+        $d_user_result = db_query($d_user);
+        foreach ($d_user_result as $d_user_result) {
+            $d_user_mail = $d_user_result->mail;
+            $d_user_name = $d_user_result->name;
+        }
+        //To select group owners email address
+        $owner_uid = db_select("node", "node");
+        $owner_uid->fields("node", array("uid"));
+        $owner_uid->fields("node", array("title"));
+        $owner_uid->where("nid=" . $gid);
+        $owner_result = db_query($owner_uid);
+        foreach ($owner_result as $owner_result) {
+            $uid = $owner_result->uid;
+            $node_title = $owner_result->title;
+        }
+
+        $owner_mail = db_select("users", "us");
+        $owner_mail->fields("us", array("mail"));
+        $owner_mail->where("uid=" . $uid);
+        $owner_mail_result = $owner_mail->execute()->fetchField();
+        //Send mail to owner and disassociated user
+        $mails = $d_user_mail . "," . $owner_mail_result;
+        $my_module = 'custom_features';
+        $my_mail_token = 'disassociate';
+        $from = variable_get('site_mail');
+        $message = array(
+            'id' => $my_module . '_' . $my_mail_token,
+            'to' => $mails,
+            'subject' => 'Disassociates from HCF',
+            'body' => $d_user_name . " is now disassociated from " . $node_title . ". All of His/Her content is now unpublished untill he/she creates or join new HCF.",
+            'headers' => array(
+                'From' => $from,
+                'Sender' => 'ChairResults',
+                'Return-Path' => $from,
+            ),
+        );
+        $system = drupal_mail_system($my_module, $my_mail_token);
+        if ($system->mail($message)) {
+            drupal_set_message(t('You are now disassociated from ' . $node_title . '.'));
+        } else {
+            drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+        }
+        //To re-direct user to the profile
+        $query = db_select("users", "us");
+        $query->fields("us", array("name"));
+        $query->where("uid=" . $etid);
+        $result = $query->execute()->fetchField();
+        $result = strtolower(str_replace(' ', '', $result));
+        drupal_goto($result);
+    }
+}
+
+function custom_features_disassociate_hcp() {
+    if (isset($_GET['group_type']) && isset($_GET['gid']) && isset($_GET['entity_type']) && isset($_GET['etid'])) {
+        $group_type = $_GET['group_type'];
+        $gid = $_GET['gid'];
+        $entity_type = $_GET['entity_type'];
+        $etid = $_GET['etid'];
+
+        //to disassociate user from hcf
+        og_ungroup($group_type, $gid, $entity_type, $etid);
+
+        //To unpublish content of disassociated user
+        $query = db_select("node", "node");
+        $query->fields("node", array("nid"));
+        $query->where("uid=" . $etid);
+        $result = db_query($query);
+        foreach ($result as $record) {
+            $node = node_load($record->nid);
+            $node->status = 0;
+            node_save($node);
+        }
+        //To send email to disassociated user
+        //To select disassociated users email address
+        $d_user = db_select("users", "us");
+        $d_user->fields("us", array("mail"));
+        $d_user->fields("us", array("name"));
+        $d_user->where("uid=" . $etid);
+        $d_user_result = db_query($d_user);
+        foreach ($d_user_result as $d_user_result) {
+            $d_user_mail = $d_user_result->mail;
+            $d_user_name = $d_user_result->name;
+        }
+        //To select group owners email address
+        $owner_uid = db_select("node", "node");
+        $owner_uid->fields("node", array("uid"));
+        $owner_uid->fields("node", array("title"));
+        $owner_uid->where("nid=" . $gid);
+        $owner_result = db_query($owner_uid);
+        foreach ($owner_result as $owner_result) {
+            $uid = $owner_result->uid;
+            $node_title = $owner_result->title;
+        }
+
+        $owner_mail = db_select("users", "us");
+        $owner_mail->fields("us", array("mail"));
+        $owner_mail->where("uid=" . $uid);
+        $owner_mail_result = $owner_mail->execute()->fetchField();
+        //Send mail to owner and disassociated user
+        $mails = $d_user_mail . "," . $owner_mail_result;
+        $my_module = 'custom_features';
+        $my_mail_token = 'disassociate';
+        $from = variable_get('site_mail');
+        $message = array(
+            'id' => $my_module . '_' . $my_mail_token,
+            'to' => $mails,
+            'subject' => 'Disassociates from HCF',
+            'body' => $d_user_name . " is now disassociated from " . $node_title . ". All of His/Her content is now unpublished untill he/she creates or join new HCF.",
+            'headers' => array(
+                'From' => $from,
+                'Sender' => 'ChairResults',
+                'Return-Path' => $from,
+            ),
+        );
+        $system = drupal_mail_system($my_module, $my_mail_token);
+        if ($system->mail($message)) {
+            drupal_set_message(t($d_user_name . ' is now disassociated from ' . $node_title . '.'));
+        } else {
+            drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+        }
+        //To re-direct user to the hcf page
+        $query = db_select("node", "node");
+        $query->fields("node", array("title"));
+        $query->where("nid=" . $gid);
+        $result = $query->execute()->fetchField();
+        $result = " " . $result . " ";
+        $search = array(' the ', ' a ', ' an ', ' as ', ' at ', ' before ', ' but ', ' by ', ' for ', ' from ', ' is ', ' in ', ' into ', ' like ', ' of ', ' off ', ' on ', ' onto ', ' per ', ' since ', ' than ', ' this ', ' that ', ' to ', ' up ', ' via ', ' with ', ' ');
+        foreach ($search as $s) {
+            $result = strtolower(str_replace($s, ' ', $result));
+        }
+        $result = strtolower(str_replace(' ', '', $result));
+        drupal_goto($result);
+    }
+}
+
+function custom_features_request_membership() {
+    global $base_url;
+    if (isset($_GET['group_type']) && isset($_GET['gid']) && isset($_GET['entity_type']) && isset($_GET['etid'])) {
+        $group_type = $_GET['group_type'];
+        $gid = $_GET['gid'];
+        $entity_type = $_GET['entity_type'];
+        $etid = $_GET['etid'];
+        if ($etid != 0) {
+
+            //To select email address of user who wants to join the group
+            $d_user = db_select("users", "us");
+            $d_user->fields("us", array("name"));
+            $d_user->where("uid=" . $etid);
+            $d_user_result = db_query($d_user);
+            foreach ($d_user_result as $d_user_result) {
+                $d_user_name = $d_user_result->name;
+            }
+
+            //To select group information
+            $groups = db_select("node", "node");
+            $groups->fields("node", array("title"));
+            $groups->fields("node", array("uid"));
+            $groups->where("nid=" . $gid);
+            $groups_result = db_query($groups);
+            foreach ($groups_result as $groups_result) {
+                $uid = $groups_result->uid;
+                $node_title = $groups_result->title;
+                $groups_owner = db_select("users", "us");
+                $groups_owner->fields("us", array("name"));
+                $groups_owner->where("uid=" . $groups_result->uid);
+                $owner_name = $groups_owner->execute()->fetchField();
+            }
+
+            $owner_mail = db_select("users", "us");
+            $owner_mail->fields("us", array("mail"));
+            $owner_mail->where("uid=" . $uid);
+            $owner_mail_result = $owner_mail->execute()->fetchField();
+            //Send mail to owner and disassociated user
+            $my_module = 'custom_features';
+            $my_mail_token = 'request_membership';
+            $from = variable_get('site_mail');
+            $accept_link = $base_url . "/accept_membership?group_type=" . $group_type . "&gid=" . $gid . "&etid=" . $etid;
+            $reject_link = $base_url . "/reject_membership?group_type=" . $group_type . "&gid=" . $gid . "&etid=" . $etid;
+            $message = array(
+                'id' => $my_module . '_' . $my_mail_token,
+                'to' => $owner_mail_result,
+                'subject' => 'Request Membership',
+                'body' => "Hello " . $owner_name . ",<br><br>
+                       This email is to notify you that " . $d_user_name . " wants to join the " . $node_title . " facility as a hair care professional. 
+                       As the account owner of this facility, you must accept or reject this request. Below we have provided quick links that allow you to quickly address this request.<br><br>
+                       I <a href='" . $accept_link . "'>Accept</a> this request and want to grant this person permission to be affiliated with my hair care facility so they can begin publishing content.<br><br>
+                       I <a href='" . $reject_link . "'>Reject</a> this request. This person is not affiliated with my hair care facility and does not have my permission to publish content on our behalf.<br><br>
+                       Thanks,<br>
+                       ChairResults Administration Team",
+                'headers' => array(
+                    'From' => $from,
+                    'Sender' => 'ChairResults',
+                    'Return-Path' => $from,
+                    'Content-Type' => 'text/html; charset=UTF-8;',
+                ),
+            );
+            $system = drupal_mail_system($my_module, $my_mail_token);
+            if ($system->mail($message)) {
+                drupal_set_message(t('Your Request has been sent.'));
+            } else {
+                drupal_set_message(t('There was a problem sending your request and it was not sent.'), 'error');
+            }
+
+            //To mark request status
+            db_insert('request_status')->fields(
+                    array(
+                        'uid' => $etid,
+                        'gid' => $gid,
+                        'status' => 0
+                    )
+            )->execute();
+            //To re-direct user to the profile
+            $query = db_select("users", "us");
+            $query->fields("us", array("name"));
+            $query->where("uid=" . $etid);
+            $result = $query->execute()->fetchField();
+            $result = strtolower(str_replace(' ', '', $result));
+            drupal_goto($result);
+        }
+    }
+}
+
+function custom_features_accept_membership() {
+    global $base_url;
+    $group_type = $_GET['group_type'];
+    $gid = $_GET['gid'];
+    $etid = $_GET['etid'];
+
+    //To publish content of user
+    $query = db_select("node", "node");
+    $query->fields("node", array("nid"));
+    $query->where("uid=" . $etid);
+    $result = db_query($query);
+    foreach ($result as $record) {
+        $node = node_load($record->nid);
+        $node->status = 1;
+        $node->og_group_ref['und'][0]['target_id'] = $gid;
+        node_save($node);
+    }
+    //To send email to disassociated user
+    //To select email address of user who wants to join the group
+    $d_user = db_select("users", "us");
+    $d_user->fields("us", array("mail"));
+    $d_user->fields("us", array("name"));
+    $d_user->where("uid=" . $etid);
+    $d_user_result = db_query($d_user);
+    foreach ($d_user_result as $d_user_result) {
+        $d_user_mail = $d_user_result->mail;
+        $d_user_name = $d_user_result->name;
+    }
+    //To select group owners email address
+    $owner_uid = db_select("node", "node");
+    $owner_uid->fields("node", array("uid"));
+    $owner_uid->fields("node", array("title"));
+    $owner_uid->where("nid=" . $gid);
+    $owner_result = db_query($owner_uid);
+    foreach ($owner_result as $owner_result) {
+        $uid = $owner_result->uid;
+        $node_title = $owner_result->title;
+    }
+    //To check whether the membership request has been cancelled by user
+    $membership_status = db_select("request_status", "rs");
+    $membership_status->fields("rs", array("uid"));
+    $membership_status->where("uid=" . $etid);
+    $membership_status->where("gid=" . $gid);
+    $num_rows = $membership_status->execute();
+    $count = $num_rows->rowCount();
+    if ($count == 1) {
+        $join_group = og_group($group_type, $gid, $values = array('entity_type' => "user", 'entity' => $etid), $save_created = TRUE);
+        //Send mail to owner and disassociated user
+        $my_module = 'custom_features';
+        $my_mail_token = 'membership_request_accepted';
+        $from = variable_get('site_mail');
+        $message = array(
+            'id' => $my_module . '_' . $my_mail_token,
+            'to' => $d_user_mail,
+            'subject' => 'Membership Request Accepted',
+            'body' => "Your request to the " . $node_title . " has been accepted. You are now the member of " . $node_title . ".",
+            'headers' => array(
+                'From' => $from,
+                'Sender' => 'ChairResults',
+                'Return-Path' => $from,
+            ),
+        );
+        $system = drupal_mail_system($my_module, $my_mail_token);
+        if ($system->mail($message)) {
+            drupal_set_message(t('You Approved the request. Approval mail has been sent to ' . $d_user_name . '.'));
+        } else {
+            drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+        }
+
+        //To delete request status
+        db_delete('request_status')
+                ->condition('uid', $etid)
+                ->condition('gid', $gid)
+                ->execute();
+    } else {
+        drupal_set_message(t('Either ' . $d_user_name . ' is already the group member or request has been cancelled.'));
+    }
+    drupal_goto($base_url);
+}
+
+function custom_features_reject_membership() {
+    global $base_url;
+    $gid = $_GET['gid'];
+    $etid = $_GET['etid'];
+
+    //To select email address of user who wants to join the group
+    $d_user = db_select("users", "us");
+    $d_user->fields("us", array("mail"));
+    $d_user->fields("us", array("name"));
+    $d_user->where("uid=" . $etid);
+    $d_user_result = db_query($d_user);
+    foreach ($d_user_result as $d_user_result) {
+        $d_user_mail = $d_user_result->mail;
+        $d_user_name = $d_user_result->name;
+    }
+
+    //To select group owners email address
+    $owner_uid = db_select("node", "node");
+    $owner_uid->fields("node", array("uid"));
+    $owner_uid->fields("node", array("title"));
+    $owner_uid->where("nid=" . $gid);
+    $owner_result = db_query($owner_uid);
+    foreach ($owner_result as $owner_result) {
+        $uid = $owner_result->uid;
+        $node_title = $owner_result->title;
+    }
+
+    $owner_name = db_select("users", "us");
+    $owner_name->fields("us", array("name"));
+    $owner_name->where("uid=" . $uid);
+    $owner_name_result = $owner_name->execute()->fetchField();
+    //To check whether the membership request has been cancelled by user
+    $membership_status = db_select("request_status", "rs");
+    $membership_status->fields("rs", array("uid"));
+    $membership_status->where("uid=" . $etid);
+    $membership_status->where("gid=" . $gid);
+    $num_rows = $membership_status->execute();
+    $count = $num_rows->rowCount();
+    if ($count == 1) {
+        //Send mail to owner and disassociated user
+        $my_module = 'custom_features';
+        $my_mail_token = 'membership_request_rejected';
+        $from = variable_get('site_mail');
+        $message = array(
+            'id' => $my_module . '_' . $my_mail_token,
+            'to' => $d_user_mail,
+            'subject' => 'Request Membership Rejected',
+            'body' => "Your request to join the " . $node_title . " has been rejected by " . $owner_name_result . " owner of the group.",
+            'headers' => array(
+                'From' => $from,
+                'Sender' => 'ChairResults',
+                'Return-Path' => $from,
+                'Content-Type' => 'text/html; charset=UTF-8;',
+            ),
+        );
+        $system = drupal_mail_system($my_module, $my_mail_token);
+        if ($system->mail($message)) {
+            drupal_set_message(t('Rejection email has been sent to ' . $d_user_name . '.'));
+        } else {
+            drupal_set_message(t('There was a problem sending your mail.'), 'error');
+        }
+        //To delete request status
+        db_delete('request_status')
+                ->condition('uid', $etid)
+                ->condition('gid', $gid)
+                ->execute();
+    } else {
+        drupal_set_message(t('Either ' . $d_user_name . ' is already the group member or request has been cancelled.'));
+    }
+    drupal_goto($base_url);
+}
+
+function custom_features_cancel_membership_request() {
+    $uid = $_GET['uid'];
+    db_delete('request_status')
+            ->condition('uid', $uid)
+            ->execute();
+    drupal_set_message(t('Membership request has been cancelled.'));
+    //To re-direct user to the profile
+    $query = db_select("users", "us");
+    $query->fields("us", array("name"));
+    $query->where("uid=" . $uid);
+    $result = $query->execute()->fetchField();
+    $result = strtolower(str_replace(' ', '', $result));
+    drupal_goto($result);
+}
+
+// Custom feature to add text in links in front of terms of use to show node in pop up
+function custom_features_user_agreement_document() {
+    $query = db_select("node", "n");
+    $query->fields("n", array("nid"));
+    $query->condition('title', 'Hair Care ChairResults User Agreement', '=');
+    $result = $query->execute()->fetchField();
+    $node = node_load($result);
+    $text = '<div style="font-size:1.1em;"> ' . $node->body['und'][0]['value'] . '</div>';
+    print $text;
+}
+
+function custom_features_sales_agreement_document() {
+    $query = db_select("node", "n");
+    $query->fields("n", array("nid"));
+    $query->condition('title', 'Hair Care ChairResults Sales Agreement', '=');
+    $result = $query->execute()->fetchField();
+    $node = node_load($result);
+    $text = '<div style="font-size:1.1em;"> ' . $node->body['und'][0]['value'] . '</div>';
+    print $text;
+}
+
+function custom_features_my_facility() {
+    global $user;
+    $gid = og_get_groups_by_user($user);
+    foreach ($gid as $g) {
+        $group = node_load($g);
+        $query = db_select("url_alias", "url");
+        $query->fields("url", array("alias"));
+        $query->condition('url.source', 'node/' . $group->nid, '=');
+        $result = $query->execute()->fetchField();
+    }
+    drupal_goto($result);
+}
+
+//function custom_features_uc_checkout_complete($order, $account){
+//    $user = user_load($order->uid);
+//    $gid = og_get_groups_by_user($user);
+//        foreach ($gid as $g) {
+//            $group = node_load($g);
+//        }
+//        $users = og_get_group_members_properties($group, array(), 'members__1', 'node');
+////        echo '<pre/>';print_r($userss);exit;
+//        foreach($users as $users){
+//            add_role_to_user($users,'Stylist Gold');
+//        }
+//}
+
+function custom_features_uc_roles_revoke($account, $rid) {
+    $user = user_load($account->uid);
+    $gid = og_get_groups_by_user($user);
+    foreach ($gid as $g) {
+        $group = node_load($g);
+    }
+    if ($user->uid == $group->uid) {
+        $group_members = og_get_group_members_properties($group, array(), 'members__1', 'node');
+//        echo '<pre/>';print_r($userss);exit;
+        foreach ($group_members as $group_member) {
+            if ($user->uid != $group_member) {
+                $member = user_load($group_member);
+                uc_roles_revoke($member, $rid);
+            }
+        }
+    }
+}
+
+function add_role_to_user($user, $role_name) {
+    // For convenience, we'll allow user ids as well as full user objects.
+    if (is_numeric($user)) {
+        $user = user_load($user);
+    }
+    // If the user doesn't already have the role, add the role to that user.
+    $key = array_search($role_name, $user->roles);
+    if ($key == FALSE) {
+        // Get the rid from the roles table.
+        $roles = user_roles(TRUE);
+        $rid = array_search($role_name, $roles);
+        if ($rid != FALSE) {
+            $new_role[$rid] = $role_name;
+            $all_roles = $user->roles + $new_role; // Add new role to existing roles.
+            user_save($user, array('roles' => $all_roles));
+        }
+    }
+}
+
+?>

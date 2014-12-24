@@ -1,0 +1,6 @@
+name=Contact Us
+description = this module is used to create a form containing contact us related fields
+core = "7.x"
+version = "1.0"
+configure=admin/structure/
+files[] =contact_us.module

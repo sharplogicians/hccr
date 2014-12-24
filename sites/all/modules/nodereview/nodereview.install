@@ -1,0 +1,155 @@
+<?php
+
+/**
+ * @file
+ * Install script to install the nodereview module
+ *
+ */
+
+/**
+ * Implements of hook_install().
+ */
+function nodereview_install() {
+
+}
+
+/**
+ * Implements of hook_uninstall().
+ */
+function nodereview_uninstall() {
+  //Delete all the node type entry from nodetype table
+  node_type_delete('nodereview');
+
+  // Delete all nodes with nodetype 'nodereview'
+  $nids = db_select('node', 'n')
+    ->fields('n', array('nid'))
+    ->condition('type', 'nodereview')
+    ->execute()
+    ->fetchCol();
+  node_delete_multiple($nids);
+  //Delet all nodereview labels
+  for ($i = 1; $i < 11; $i++) {
+    variable_del('nodereview_rating_label' . $i);
+  }
+  //Delete nodereview maximum rating and rating type
+  variable_del('nodereview_maxrating');
+  variable_del('nodereview_rating_type');
+
+  //Delete nodereview node types & its help info
+  foreach (node_type_get_types() as $type => $info) {
+    variable_del('nodereview_use_' . $type);
+    variable_del('nodereview_guide_' . $info->name);
+  }
+}
+
+/**
+ * Implements of hook_schema().
+ */
+function nodereview_schema() {
+
+  $schema['nodereview'] = array(
+    'description' => t('Stores reviewed node and the review node mapping.'),
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => t('The {node}.nid of the review.'),
+      ),
+
+      'reviewed_nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => t('The {node}.nid to which is reviewed.'),
+      ),
+
+    ),
+    'primary key' => array('nid'),
+  );
+
+
+  $schema['nodereview_axes'] = array(
+    'description' => t('Stores axes labels for particular node types.'),
+    'fields' => array(
+      'aid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => t('The {node}.nid of the review.'),
+      ),
+
+      'tag' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => t('The tag for the axes.'),
+      ),
+
+      'node_type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => t('The node type to which the axes belong.'),
+      ),
+
+      'weight' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'length' => 11,
+        'default' => 0,
+        'description' => t('The axes weight.'),
+      ),
+
+      'description' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+        'description' => t('The decsription about the axes.'),
+      ),
+
+      'description_required' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'size' => 'tiny',
+        'default' => 0,
+        'description' => t('Whether or not a vote description is required.'),
+      ),
+    ),
+    'primary key' => array('aid'),
+  );
+
+
+  $schema['nodereview_reviews'] = array(
+    'description' => t('Stores reviews.'),
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'length' => 11,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => t('The {node}.nid of the review.'),
+      ),
+
+      'aid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'length' => 11,
+        'default' => 0,
+        'description' => t('The {axes}.nid of the review.'),
+      ),
+
+      'review' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'description' => t('The review.'),
+      ),
+
+    ),
+    'key' => array('nid'),
+  );
+  return $schema;
+}

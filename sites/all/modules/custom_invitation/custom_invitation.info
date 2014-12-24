@@ -1,0 +1,4 @@
+name = Custom Invitation
+description = Custom Invitation for Sales user to invite HCF owners to create account.
+package = Custom
+core = 7.x

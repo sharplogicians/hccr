@@ -1,0 +1,10 @@
+; $Id: auto_expire.info,v 1.3 2009/06/28 22:55:18 marcvangend Exp $
+
+name = My module
+description = "My module will let anonymous users create node and then register user and associate user with that node"
+core = 7.x
+
+
+files[] = module1.module
+
+

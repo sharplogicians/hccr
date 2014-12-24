@@ -1,0 +1,50 @@
+<?php
+function contact_us_uninstall() {
+    drupal_uninstall_schema('contact_us');
+}
+
+function contact_us_enable() {
+  $current = variable_get('mail_system', array('default-system' => 'DefaultMailSystem'));
+  $addition = array('contact_us' => 'contactusMailSystem');
+  variable_set('mail_system', array_merge($current, $addition));
+}
+
+function contact_us_disable() {
+  $mail_system = variable_get('mail_system', array('default-system' => 'DefaultMailSystem'));
+  unset($mail_system['contact_us']);
+  variable_set('mail_system', $mail_system);
+}
+
+function contact_us_schema() {
+    $schema['contact_us'] = array(
+      'fields' => array(
+        'id' => array(
+        'description' => t('Primary Key ID'),
+        'type' => 'serial',
+        'signed' => TRUE,
+        'not null' => TRUE,
+        
+      ),
+          'name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'email' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+     'message' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 255,
+      ),
+    ),
+    'primary key' => array( 'id' ),
+  );
+
+  // Return the Table Schema
+  return $schema;
+  
+}

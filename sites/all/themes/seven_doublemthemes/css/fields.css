@@ -1,0 +1,407 @@
+/**
+ * @file
+ * Field Styling
+ */
+
+.node-hair-care-facility
+{
+margin-left:40px;
+}
+.field-type-fivestar  {
+/*border:solid 1px;
+text-align:center;
+margin-top:3px;
+width:180px;*/
+}
+.node-hair-care-facility .fivestar-widget
+{
+margin:0 22px;
+}
+.node-hair-care-facility .fivestar-widget-static
+{
+margin:0 45px;
+}
+.node-hair-care-facility .field-type-text {
+border:solid 1px;
+text-align:center;
+margin-top:3px;
+width:180px;
+}
+.node-hair-care-facility .field-type-taxonomy-term-reference {
+border:solid 1px;
+text-align:center;
+margin-top:3px;
+width:180px;
+}
+.node-hair-care-facility .field-type-image
+{
+width:150px;
+text-align:center;
+}
+.node-hair-care-facility .field-type-taxonomy-term-reference a {
+text-decoration:none;
+}
+.node-hair-care-facility  .field-label
+{
+
+}
+.node-hair-care-facility .field-type-list-boolean {
+
+}
+
+.field-type-text-long {
+}
+
+.node-hair-care-facility .field-type-text-with-summary {
+border:solid 1px;
+text-align:center;
+margin-top:3px;
+width:180px;
+}
+
+.node-hairstyle .field-type-image {
+
+}
+
+.field-type-file {
+}
+
+
+.node-hairstyle .field-type-taxonomy-term-reference {
+
+}
+.node-hairstyle .field-type-text-with-summary {
+
+}
+
+
+
+
+
+.field-type-number-integer {
+}
+
+.field-type-number-decimal {
+}
+
+.field-type-number-float {
+}
+
+.field-type-list-text {
+}
+
+
+
+.field-type-list-integer {
+}
+
+.field-type-list-float {
+}
+
+/*
+ * Field types (Contrib)
+ */
+.field-type-datetime /* Always use "datetime" when creating new CCK date fields. "date" and "datestamp" are legacy types. */ {
+}
+
+.field-type-node-reference {
+}
+
+.field-type-user-reference {
+}
+
+
+/*
+ * Named fields
+ */
+.field-name-body {
+}
+
+.field-name-field-image {
+}
+
+.field-name-field-tags {
+}
+
+.field-name-field-FIELDNAME /* Underscores in field name are replaced with dashes. */ {
+}
+
+.field-name-field-other-images
+{
+margin-top:10px;
+}
+
+
+.field-name-field-other-images .field-item 
+{
+float:left;
+margin:10px 0 0 15px;
+}
+
+.node-hairstyle .field-type-entityreference
+{
+
+}
+
+.field-name-field-classification
+{
+margin-top:10px;
+}
+
+
+/*SHARE THIS*/
+.block-sharethis .content
+{
+margin-left:10px;
+}
+/*SHARE THIS*/
+
+
+/*FACEBOOK COMMENTS*/
+.block-facebook-comments-box .content
+{
+}
+/*FACEBOOK COMMENTS*/
+
+
+/*NODE-SERVICE-REQUEST*/
+
+
+/*NODE-SERVICE-REQUEST*/
+
+
+
+
+
+
+/*USER MENU*/
+#block-system-user-menu li
+{
+display:inline;
+font-weight:bold;
+}
+#block-system-user-menu li a{
+    text-decoration: none;
+}
+/*USER MENU*/
+
+
+
+
+
+
+/*Profile page
+.profile
+{
+margin-left:40px;
+}
+#block-system-main 
+{
+width:100%;
+}
+#block-views-group-styles-block-3 .view-group-styles
+{
+margin-left:0px;
+}
+.profile .user-picture
+{
+text-align:center;
+width:150px;
+margin-bottom:10px;
+}
+.profile .field-type-text
+{
+width:150px;
+border:1px solid;
+text-align:center;
+margin-top:3px;
+}
+.profile .field-type-text-with-summary
+{
+width:150px;
+border:1px solid;
+text-align:center;
+margin-top:3px;
+}
+.profile .field-type-datetime
+{
+width:150px;
+border:1px solid;
+text-align:center;
+margin-top:3px;
+}
+.profile h3
+{
+width:150px;
+}*/
+/*Profile page*/
+
+
+/*NAVIGATION MENU*/
+#block-system-navigation ul li.leaf
+{
+display:block;
+margin:0px;
+list-style:arrow;
+}
+#block-system-navigation ul
+{
+padding-left:0px;
+}
+#block-system-navigation ul li.leaf a:link,a:visited
+{
+display:block;
+padding:3px;
+text-decoration:none;
+font-weight:bold;
+}
+#block-system-navigation ul li.leaf a:hover
+{
+background-color:#115892;
+color:white;
+}
+#block-system-navigation ul li.leaf a:active
+{
+background-color:#115892;
+color:white;
+}
+/*NAVIGATION MENU*/
+
+
+
+#block-invites-invites-hcf-invite .form-item .form-text
+{
+width:177px;
+}
+/*#block-invites-invites-hcf-invite .form-item #edit-mail--2
+{
+width:177px;
+}
+#block-invites-invites-hcf-invite .form-item #edit-field-first-name-und-0-value
+{
+width:177px;
+}
+#block-invites-invites-hcf-invite .form-item #edit-field-last-name-und-0-value
+{
+width:177px;
+}*/
+
+.closure
+{
+padding-top:15px;
+padding-bottom:70px;
+}
+
+
+
+
+
+
+/*BUTTONS*/
+.form-submit
+{
+/*border:2px solid #115892;
+border-radius:3px;*/
+border:none;
+background:#28a8e2;
+padding:6px 15px;
+color:white;
+font-weight:bold;
+margin:0px 5px !important;
+cursor:pointer;
+}
+.order-div{
+float: left;
+width: 100%;
+margin-top: 10px;
+}
+.order-div a:hover{
+color:white;
+}
+.order-form-submit
+{
+/*border:2px solid #115892;
+border-radius:3px;*/
+border:none;
+background:#28a8e2;
+padding:6px 15px;
+color:white;
+text-decoration: none;
+font-weight:normal !important;
+cursor:pointer;
+}
+/*.form-submit:link,.form-submit:hover
+{
+cursor:pointer;
+color:white;
+background-color:#115892;
+}*/
+.ajax-processed
+{
+padding:0px 10px;
+}
+#edit-og-group-ref-und-0-admin-add-more
+{
+margin-top:7px !important;
+padding:5px 15px !important;
+}
+#edit-submit-my-recent-artiles
+{
+margin:10px 0px !important;
+}
+/*BUTTONS*/
+
+/*TEXTBOX*/
+input[type="text"], input[type="password"], input.text, input.title, textarea, select, input[type=file]
+{
+/*border:2px solid #115892;*/
+border-radius:3px;
+padding:5px;
+}
+fieldset
+{
+/*border:2px solid #115892;
+border-radius:3px;*/
+}
+/*TEXTBOX*/
+
+
+/*INVITATION GROUP*/
+#invites-form .form-item .form-text
+{
+width:200px;
+}
+#invites-form .form-item #edit-field-invitation-group-und-0-admin-0-target-id
+{
+width:200px;
+}
+/*INVITATION GROUP*/
+
+/*FACEBOOK LIKE BUTTON*/
+body.plugin
+{
+width:240px !important;
+padding:8px !important;
+border:2px solid #115892 !important;
+border-radius:3px !important;
+}
+/*FACEBOOK LIKE BUTTON*/
+
+
+/*BLOCK SEARCH*/
+.block-search
+{
+margin:0px 17px 0px 0px !important;
+float:right;
+}
+/*BLOCK SEARCH*/
+
+/*BLOCK SYSTEM*/
+.block-system ul.menu li.leaf a
+{
+text-decoration:none !important;
+font-weight:bold;
+}
+/*BLOCK SYSTEM*/
+
+

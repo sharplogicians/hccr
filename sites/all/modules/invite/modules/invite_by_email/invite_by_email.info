@@ -1,0 +1,21 @@
+name = Invite by e-mail
+description = Allow users invite other using e-mail
+core = 7.x
+package = Invite
+
+files[] = invite_by_email.module
+files[] = invite_by_email.admin.inc
+
+configure = admin/config/people/invite/by_mail
+
+dependencies[] = invite
+dependencies[] = entity_token
+
+stylesheets[screen][] = css/invite_by_email.css
+
+; Information added by drupal.org packaging script on 2013-03-10
+version = "7.x-4.0-alpha1+0-dev"
+core = "7.x"
+project = "invite"
+datestamp = "1362921208"
+

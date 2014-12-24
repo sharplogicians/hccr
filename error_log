@@ -1,0 +1,246 @@
+[20-Mar-2013 20:31:36] PHP Fatal error:  Call to undefined function  dpm() in /home/citicr/public_html/sites/all/modules/uc_restrict_qty/uc_restrict_qty.module on line 164
+[27-Aug-2013 01:55:55] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/user-profile.tpl.php on line 1
+[27-Aug-2013 01:57:51] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/user-profile.tpl.php on line 1
+[27-Aug-2013 01:58:44] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/user-profile.tpl.php on line 1
+[27-Aug-2013 02:12:05] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/user-profile.tpl.php on line 1
+[27-Aug-2013 02:13:51] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/user-profile.tpl.php on line 1
+[04-Sep-2013 04:00:26] PHP Fatal error:  Call to undefined method Invites::status() in /home/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[04-Sep-2013 04:00:50] PHP Fatal error:  Call to undefined method Invites::status() in /home/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[05-Sep-2013 09:05:08] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required 'base_facebook.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/citicr/public_html/sites/all/modules/facebook_pull/facebook.php on line 18
+[11-Sep-2013 08:00:39] PHP Parse error:  syntax error, unexpected T_ECHO in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[11-Sep-2013 08:01:12] PHP Parse error:  syntax error, unexpected T_STRING in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[11-Sep-2013 08:01:54] PHP Parse error:  syntax error, unexpected T_STRING in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[11-Sep-2013 08:15:00] PHP Parse error:  syntax error, unexpected T_ECHO in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[11-Sep-2013 08:15:01] PHP Parse error:  syntax error, unexpected T_ECHO in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[11-Sep-2013 08:17:33] PHP Parse error:  syntax error, unexpected T_ECHO in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[11-Sep-2013 10:19:47] PHP Parse error:  syntax error, unexpected '[', expecting T_STRING or T_VARIABLE or '{' or '$' in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[11-Sep-2013 10:20:18] PHP Parse error:  syntax error, unexpected '[', expecting T_STRING or T_VARIABLE or '{' or '$' in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[11-Sep-2013 10:36:30] PHP Parse error:  syntax error, unexpected T_CONSTANT_ENCAPSED_STRING in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[11-Sep-2013 10:43:53] PHP Parse error:  syntax error, unexpected T_ECHO in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hairstyle.tpl.php on line 1
+[17-Sep-2013 05:20:21] PHP Fatal error:  Call to undefined function  printrender() in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hair_care_facility.tpl.php on line 1
+[09-Oct-2013 15:11:33] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[09-Oct-2013 15:12:27] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[09-Oct-2013 15:12:56] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[09-Oct-2013 15:19:26] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[09-Oct-2013 05:24:17] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[09-Oct-2013 05:29:06] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[09-Oct-2013 15:32:51] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[09-Oct-2013 15:33:15] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[10-Oct-2013 02:26:05] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[10-Oct-2013 02:36:39] PHP Parse error:  syntax error, unexpected $end in /home3/citicr/public_html/sites/all/modules/rules/modules/php.eval.inc(372) : eval()'d code on line 18
+[10-Oct-2013 04:39:51] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 04:43:10] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 05:00:29] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 05:05:31] PHP Parse error:  syntax error, unexpected T_ECHO in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hair_care_facility.tpl.php on line 1
+[10-Oct-2013 15:05:34] PHP Parse error:  syntax error, unexpected T_ECHO in /home3/citicr/public_html/sites/all/themes/seven_doublemthemes/templates/node--hair_care_facility.tpl.php on line 1
+[10-Oct-2013 15:14:00] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[10-Oct-2013 06:31:44] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 06:36:01] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 06:36:15] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 06:37:17] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 06:41:43] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 06:48:17] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 06:52:44] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 07:41:54] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[10-Oct-2013 07:44:27] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/includes/common.inc on line 22231
+[11-Oct-2013 14:51:00] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[11-Oct-2013 15:26:48] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[11-Oct-2013 16:35:36] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[11-Oct-2013 06:43:36] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[11-Oct-2013 09:15:09] PHP Parse error:  syntax error, unexpected $end in /home3/citicr/public_html/sites/all/modules/custom_features/custom_features.module on line 231
+[21-Oct-2013 14:59:40] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[21-Oct-2013 19:53:14] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[22-Oct-2013 13:04:23] PHP Parse error:  syntax error, unexpected '}' in /home3/citicr/public_html/sites/all/modules/custom_features/custom_features.module on line 176
+[22-Oct-2013 03:04:25] PHP Parse error:  syntax error, unexpected '}' in /home3/citicr/public_html/sites/all/modules/custom_features/custom_features.module on line 176
+[23-Oct-2013 11:26:05] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[23-Oct-2013 11:28:06] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[25-Oct-2013 08:12:02] PHP Parse error:  syntax error, unexpected $end, expecting T_VARIABLE or '$' in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 99
+[11-Dec-2013 03:02:25] PHP Parse error:  syntax error, unexpected '=' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(372) : eval()'d code on line 10
+[11-Dec-2013 06:55:37] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/includes/form.inc on line 4939
+[11-Dec-2013 06:55:50] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/includes/form.inc on line 4939
+[26-Mar-2014 02:25:03] PHP Parse error:  syntax error, unexpected '}' in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 365
+[26-Mar-2014 13:09:52] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[26-Mar-2014 13:12:55] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[26-Mar-2014 13:13:05] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[26-Mar-2014 13:13:13] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[26-Mar-2014 13:13:34] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[26-Mar-2014 13:14:18] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[26-Mar-2014 08:27:14] PHP Fatal error:  Call to undefined function  a() in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 453
+[27-Mar-2014 01:07:57] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 498
+[27-Mar-2014 01:09:46] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 498
+[27-Mar-2014 12:28:40] PHP Fatal error:  Class name must be a valid object or a string in /home3/citicr/public_html/dev/includes/common.inc on line 22231
+[27-Mar-2014 19:50:44] PHP Fatal error:  Call to a member function delete() on a non-object in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 256
+[12-May-2014 07:26:58 America/Chicago] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[13-May-2014 01:21:05 America/Chicago] PHP Parse error:  syntax error, unexpected 'HCP' (T_STRING) in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(131) : runtime-created function on line 1
+[13-May-2014 01:21:05 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 138
+[13-May-2014 01:24:10 America/Chicago] PHP Parse error:  syntax error, unexpected 'print' (T_PRINT) in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(131) : runtime-created function on line 3
+[13-May-2014 01:24:10 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 138
+[13-May-2014 01:33:04 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(131) : runtime-created function on line 3
+[13-May-2014 01:33:04 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 138
+[13-May-2014 02:17:28 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(131) : runtime-created function on line 1
+[13-May-2014 02:17:28 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 138
+[13-May-2014 02:30:30 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 4
+[13-May-2014 02:30:30 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[13-May-2014 02:32:10 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 4
+[13-May-2014 02:32:10 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[13-May-2014 02:52:19 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 6
+[13-May-2014 02:52:19 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[13-May-2014 03:36:02 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 7
+[13-May-2014 03:36:02 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[13-May-2014 04:07:19 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 8
+[13-May-2014 04:07:19 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[13-May-2014 04:07:31 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 8
+[13-May-2014 04:07:31 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[13-May-2014 04:08:10 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 8
+[13-May-2014 04:08:10 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[15-May-2014 02:42:56 America/Chicago] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[03-Jun-2014 06:02:46 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 2
+[03-Jun-2014 06:05:36 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 2
+[03-Jun-2014 07:03:35 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 2
+[03-Jun-2014 07:14:38 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 2
+[03-Jun-2014 07:21:58 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 2
+[03-Jun-2014 07:27:38 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 2
+[04-Jun-2014 07:42:11 America/Chicago] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[04-Jun-2014 07:43:20 America/Chicago] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[04-Jun-2014 07:43:56 America/Chicago] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[04-Jun-2014 08:31:55 America/Chicago] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[04-Jun-2014 08:31:59 America/Chicago] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[09-Jun-2014 04:18:40 America/Chicago] PHP Parse error:  syntax error, unexpected 'Hairstyle' (T_STRING) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 11
+[09-Jun-2014 09:14:03 America/Chicago] PHP Parse error:  syntax error, unexpected 'Policy' (T_STRING) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 10
+[10-Jun-2014 03:01:28 America/Chicago] PHP Parse error:  syntax error, unexpected 'Policy' (T_STRING) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 10
+[10-Jun-2014 03:04:37 America/Chicago] PHP Parse error:  syntax error, unexpected 'Policy' (T_STRING) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 10
+[11-Jun-2014 09:20:26 America/Chicago] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[11-Jun-2014 09:20:43 America/Chicago] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[19-Jun-2014 19:39:38 America/Chicago] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[19-Jun-2014 20:00:22 America/Chicago] PHP Fatal error:  Call to undefined method Invites::status() in /home3/citicr/public_html/dev/sites/all/modules/invite/modules/invite_notifications/invite_notifications.module on line 146
+[24-Jun-2014 08:01:33 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 10
+[24-Jun-2014 08:09:43 America/Chicago] PHP Parse error:  syntax error, unexpected '=' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 10
+[25-Jun-2014 02:16:39 America/Chicago] PHP Fatal error:  Call to undefined function login_one_time_send_mail() in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 12
+[24-Jul-2014 20:31:39 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 768
+[24-Jul-2014 20:38:59 America/Chicago] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/includes/form.inc on line 5263
+[04-Aug-2014 06:34:25 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 755
+[13-Aug-2014 07:13:15 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 168
+[13-Aug-2014 07:14:29 America/Chicago] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/includes/path.inc on line 1300
+[13-Aug-2014 07:16:03 America/Chicago] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/includes/path.inc on line 1300
+[13-Aug-2014 07:18:43 America/Chicago] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/includes/path.inc on line 1300
+[13-Aug-2014 09:52:33 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 809
+[13-Aug-2014 09:54:51 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 809
+[15-Aug-2014 05:38:11 America/Chicago] PHP Parse error:  syntax error, unexpected 'condition' (T_STRING) in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 147
+[18-Aug-2014 09:12:27 America/Chicago] PHP Fatal error:  Call to undefined function custom_features_url_check() in /home3/citicr/public_html/dev/includes/form.inc on line 4378
+[20-Aug-2014 06:51:04 America/Chicago] PHP Parse error:  syntax error, unexpected '=' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 6
+[21-Aug-2014 02:40:16 America/Chicago] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/includes/form.inc on line 5263
+[29-Aug-2014 06:28:22 America/Chicago] PHP Fatal error:  Cannot use [] for reading in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 263
+[29-Aug-2014 08:02:28 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 327
+[10-Sep-2014 03:40:02 America/Chicago] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[15-Sep-2014 02:36:45 America/Chicago] PHP Parse error:  syntax error, unexpected ''<pre/>'' (T_CONSTANT_ENCAPSED_STRING) in /home3/citicr/public_html/dev/sites/all/themes/seven_doublemthemes/templates/node--hair_care_facility.tpl.php on line 165
+[15-Sep-2014 07:10:31 America/Chicago] PHP Parse error:  syntax error, unexpected 'exit' (T_EXIT) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 2
+[15-Sep-2014 07:10:35 America/Chicago] PHP Parse error:  syntax error, unexpected 'exit' (T_EXIT) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 2
+[15-Sep-2014 07:10:53 America/Chicago] PHP Parse error:  syntax error, unexpected 'exit' (T_EXIT) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 2
+[15-Sep-2014 07:10:54 America/Chicago] PHP Parse error:  syntax error, unexpected 'exit' (T_EXIT) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 2
+[15-Sep-2014 07:10:58 America/Chicago] PHP Parse error:  syntax error, unexpected 'exit' (T_EXIT) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 2
+[16-Sep-2014 03:47:10 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.admin.inc on line 114
+[16-Sep-2014 03:47:11 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.admin.inc on line 114
+[16-Sep-2014 03:47:35 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.admin.inc on line 114
+[16-Sep-2014 03:54:35 America/Chicago] PHP Fatal error:  Call to a member function rowCount() on a non-object in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.admin.inc on line 123
+[16-Sep-2014 04:48:08 America/Chicago] PHP Fatal error:  Cannot use object of type DatabaseStatementBase as array in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.admin.inc on line 124
+[16-Sep-2014 06:14:13 America/Chicago] PHP Fatal error:  Cannot use object of type DatabaseStatementBase as array in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.admin.inc on line 133
+[18-Sep-2014 02:35:27 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 2
+[18-Sep-2014 02:35:42 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 2
+[18-Sep-2014 02:36:43 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 2
+[18-Sep-2014 02:36:43 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 2
+[18-Sep-2014 02:53:42 America/Chicago] PHP Parse error:  syntax error, unexpected ''publish-content);' (T_ENCAPSED_AND_WHITESPACE) in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 6
+[18-Sep-2014 02:53:42 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[18-Sep-2014 02:53:53 America/Chicago] PHP Parse error:  syntax error, unexpected ''publish-content);' (T_ENCAPSED_AND_WHITESPACE) in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 6
+[18-Sep-2014 02:53:53 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[18-Sep-2014 03:33:43 America/Chicago] PHP Parse error:  syntax error, unexpected ''publish-style);' (T_ENCAPSED_AND_WHITESPACE) in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 6
+[18-Sep-2014 03:33:43 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[18-Sep-2014 03:35:46 America/Chicago] PHP Parse error:  syntax error, unexpected ''publish-content);' (T_ENCAPSED_AND_WHITESPACE) in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc(202) : runtime-created function on line 6
+[18-Sep-2014 03:35:46 America/Chicago] PHP Fatal error:  Function name must be a string in /home3/citicr/public_html/dev/sites/all/modules/views_php/plugins/views/views_php_handler_field.inc on line 219
+[18-Sep-2014 07:11:15 America/Chicago] PHP Fatal error:  Call to undefined method DatabaseStatementBase::fetchArray() in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 878
+[02-Oct-2014 06:45:36 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.admin.inc on line 139
+[13-Oct-2014 05:16:44 America/Chicago] PHP Fatal error:  Cannot redeclare custom_features_install() (previously declared in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.install:3) in /home3/citicr/public_html/dev/sites/all/modules/custom_invitation/custom_invitation.install on line 4
+[13-Oct-2014 06:28:57 America/Chicago] PHP Fatal error:  Call to undefined function drupal_urlencode() in /home3/citicr/public_html/dev/sites/all/modules/custom_invitation/custom_invitation.module on line 61
+[14-Oct-2014 02:27:54 America/Chicago] PHP Fatal error:  Call to undefined function uc_referer_uri() in /home3/citicr/public_html/dev/sites/all/modules/uc_recurring/modules/uc_recurring_subscription/uc_recurring_subscription.admin.inc on line 335
+[14-Oct-2014 02:31:29 America/Chicago] PHP Fatal error:  Call to undefined function uc_referer_uri() in /home3/citicr/public_html/dev/sites/all/modules/uc_recurring/modules/uc_recurring_subscription/uc_recurring_subscription.admin.inc on line 335
+[15-Oct-2014 05:43:11 America/Chicago] PHP Fatal error:  Call to undefined function uc_referer_uri() in /home3/citicr/public_html/dev/sites/all/modules/uc_recurring/modules/uc_recurring_subscription/uc_recurring_subscription.admin.inc on line 335
+[20-Oct-2014 06:19:38 America/Chicago] PHP Fatal error:  Call to undefined function update_terms_of_use() in /home3/citicr/public_html/dev/includes/form.inc on line 4378
+[20-Oct-2014 08:27:00 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 10
+[20-Oct-2014 08:28:09 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 10
+[22-Oct-2014 06:17:57 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 1210
+[22-Oct-2014 06:18:07 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 1210
+[22-Oct-2014 06:19:51 America/Chicago] PHP Fatal error:  Call to undefined function update_agreement() in /home3/citicr/public_html/dev/includes/form.inc on line 4378
+[05-Nov-2014 23:27:58 America/Chicago] PHP Parse error:  syntax error, unexpected '" AND u.uid = "' (T_CONSTANT_ENCAPSED_STRING) in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module on line 743
+[05-Nov-2014 23:28:48 America/Chicago] PHP Fatal error:  Cannot redeclare products_sold_by_users() (previously declared in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.module:717) in /home3/citicr/public_html/dev/sites/all/modules/custom_features/custom_features.admin.inc on line 183
+[24-Nov-2014 01:29:33 America/Chicago] PHP Fatal error:  Call to undefined function uc_referer_uri() in /home3/citicr/public_html/dev/sites/all/modules/uc_recurring/modules/uc_recurring_subscription/uc_recurring_subscription.admin.inc on line 335
+[09-Dec-2014 07:16:11 America/Chicago] PHP Fatal error:  Call to undefined function uc_cart_checkout_complete() in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(436) : eval()'d code on line 4
+[09-Dec-2014 07:36:27 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 27
+[09-Dec-2014 07:37:04 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 27
+[11-Dec-2014 01:07:55 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(436) : eval()'d code on line 1
+[12-Dec-2014 08:12:26 America/Chicago] PHP Parse error:  syntax error, unexpected '$count' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:12:45 America/Chicago] PHP Parse error:  syntax error, unexpected '$count' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:12:49 America/Chicago] PHP Parse error:  syntax error, unexpected '$count' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:46:15 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:46:29 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:47:33 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:47:35 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:47:39 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:49:04 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:49:06 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:50:31 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:50:33 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:50:52 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:50:58 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:51:03 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:51:19 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 43
+[12-Dec-2014 08:52:48 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 44
+[12-Dec-2014 08:52:55 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 44
+[12-Dec-2014 08:53:35 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:53:36 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:53:43 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:53:43 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:54:14 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:54:41 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:55:14 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 46
+[12-Dec-2014 08:55:17 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 46
+[12-Dec-2014 08:56:02 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:56:12 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:56:27 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:56:42 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:56:50 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:57:19 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:57:28 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:57:34 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:57:41 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:57:53 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:58:06 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 08:58:10 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 45
+[12-Dec-2014 09:01:38 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 15
+[12-Dec-2014 09:01:42 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 15
+[12-Dec-2014 09:03:12 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 14
+[12-Dec-2014 09:04:03 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 14
+[12-Dec-2014 09:04:04 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 14
+[12-Dec-2014 09:05:02 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 15
+[12-Dec-2014 09:05:04 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 15
+[12-Dec-2014 09:09:17 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 15
+[12-Dec-2014 09:09:22 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 15
+[12-Dec-2014 09:09:35 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 15
+[18-Dec-2014 01:00:42 America/Chicago] PHP Parse error:  syntax error, unexpected '$role' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 24
+[18-Dec-2014 01:00:47 America/Chicago] PHP Parse error:  syntax error, unexpected '$role' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 24
+[18-Dec-2014 01:00:54 America/Chicago] PHP Parse error:  syntax error, unexpected '$role' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 24
+[18-Dec-2014 01:00:57 America/Chicago] PHP Parse error:  syntax error, unexpected '$role' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 24
+[18-Dec-2014 01:00:59 America/Chicago] PHP Parse error:  syntax error, unexpected '$role' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 24
+[18-Dec-2014 01:01:18 America/Chicago] PHP Parse error:  syntax error, unexpected '$role' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 24
+[18-Dec-2014 01:01:21 America/Chicago] PHP Parse error:  syntax error, unexpected '$role' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 24
+[18-Dec-2014 01:01:24 America/Chicago] PHP Parse error:  syntax error, unexpected '$role' (T_VARIABLE) in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 24
+[18-Dec-2014 01:32:58 America/Chicago] PHP Fatal error:  Class 'Unicode' not found in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 24
+[18-Dec-2014 04:04:56 America/Chicago] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home3/citicr/public_html/dev/modules/php/php.module(80) : eval()'d code on line 27
+[22-Dec-2014 02:34:23 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 27
+[22-Dec-2014 02:39:31 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 29
+[22-Dec-2014 02:44:09 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 30
+[22-Dec-2014 04:45:59 America/Chicago] PHP Parse error:  syntax error, unexpected '','' (T_CONSTANT_ENCAPSED_STRING) in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 27
+[22-Dec-2014 04:55:47 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 30
+[22-Dec-2014 05:08:28 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 30
+[22-Dec-2014 06:59:14 America/Chicago] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/sites/all/modules/ubercart/uc_roles/uc_roles.module on line 1126
+[22-Dec-2014 07:03:44 America/Chicago] PHP Fatal error:  Unsupported operand types in /home3/citicr/public_html/dev/sites/all/modules/ubercart/uc_roles/uc_roles.module on line 1126
+[23-Dec-2014 01:21:51 America/Chicago] PHP Parse error:  syntax error, unexpected ':', expecting ']' in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 2
+[23-Dec-2014 03:05:10 America/Chicago] PHP Fatal error:  Call to a member function fetchObject() on a non-object in /home3/citicr/public_html/dev/sites/all/modules/rules/modules/php.eval.inc(373) : eval()'d code on line 6
